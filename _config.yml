@@ -1,0 +1,12 @@
+domain: benfradet.github.io
+author: Benjamin Fradet
+email: benjamin.fradet@gmail.com
+title: Ben Fradet's website
+
+permalink: /blog/:year/:month/:day/:title
+pygments: true
+timezone: FR
+encoding: utf-8
+exclude:
+    - README.md
+    - scripts
