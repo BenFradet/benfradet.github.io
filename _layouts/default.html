@@ -2,37 +2,17 @@
 <html>
 <head>
     <meta http-equiv="content-type" content="text/html; charset=utf-8"/>
-    <title>{{page.title}}</title>
+    <title>{% if page.title != '' %}{{page.title}} | {{site.author}}
+        {% else %}{{site.author}}{% endif %}</title>
     <meta name="author" content="Benjamin Fradet"/>
+    <meta name="keywords" content="programming, coding"/>
     <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css"
     type="text/css"/>
     <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css"
     type="text/css"/>
+    <link rel="stylesheet" href="/css/style.css" type="text/css"/>
 </head>
 <body>
-    <div class="site">
-        {{content}}
-        <div class="footer">
-            <div class="contact">
-                <p>
-                    Benjamin Fradet</br>
-                    Computer science student</br>
-                    &#98;&#101;&#110;&#106;&#97;&#109;&#105;&#110;&#46;&#102;&#114;&#97;&#100;&#101;&#116;&#64;&#103;&#109;&#97;&#105;&#108;&#46;&#99;&#111;&#109;
-                </p>
-            </div>
-            <div class="contact">
-                Find me on:</br>
-                <a href="https://github.com/BenFradet" class="btn btn-default">
-                    <span class="fa fa-github-alt"></span>
-                </a>
-                <a href="https://twitter.com/StopOFlop" class="btn btn-default">
-                    <span class="fa fa-twitter"></span>
-                </a>
-                <a href="https://www.linkedin.com/in/benfradet" class="btn btn-default">
-                    <span class="fa fa-linkedin"></span>
-                </a>
-            </div>
-        </div>
-    </div>
+    {{content}}
 </body>
 </html>
