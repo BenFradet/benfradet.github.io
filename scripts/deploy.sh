@@ -2,7 +2,7 @@
 
 set -e
 
-grvToFav.sh benjamin.fradet@gmail.com 256
+./scripts/grvToFav.sh -e benjamin.fradet@gmail.com -s 256
 
 jekyll build --config _config.yml
 git add -f _site/

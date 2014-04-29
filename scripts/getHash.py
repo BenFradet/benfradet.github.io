@@ -3,7 +3,7 @@
 import hashlib, argparse
 
 def main():
-    parser = argparse.ArgumentParser(description = 'Get your hash for gravatar.')
+    parser = argparse.ArgumentParser(description = 'Get your hash from gravatar.')
     parser.add_argument('-e', '--email', help = 'Email', required = True)
     parser.add_argument('-s', '--size', help = 'Size of the image', required = True)
     args = parser.parse_args()
