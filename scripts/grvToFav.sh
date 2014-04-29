@@ -22,6 +22,6 @@ pnmquant 256 tmp_logo16.ppm > tmp_logo16x16.ppm
 
 ppmtowinicon -output favicon.ico tmp_logo16x16.ppm tmp_logo32x32.ppm
 
-rm -f tmp_logo*
+rm -f tmp_logo* /tmp/favicon.png
 
 cp favicon.ico _site/favicon.ico
