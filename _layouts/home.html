@@ -1,8 +1,20 @@
 ---
 layout: default
 ---
-<img src="/images/LesArcs.jpg" class="bg">
+<div class="container">
+    <header>
+        <h1><a href="/">{{site.author}}</a></h1>
+    </header>
+    <div id="excerpts">
+        {{content}}
+    </div>
 
-<div class="header-home">
-    {% include header.html %}
+    <div id="about">
+        <p>I'm a computer science student studying data mining and data science. I love skiing/snowboarding. I'm currently living in Compiegne, France.</p><br/>
+        <div id="icon-h">
+            <div><a href="https://github.com/BenFradet" class="fa fa-github-alt fa-3x"></a></div>
+            <div><a href="https://twitter.com/StopOFlop" class="fa fa-twitter fa-3x"></a></div>
+            <div><a href="https://www.linkedin.com/in/benfradet" class="fa fa-linkedin fa-3x"></a></div>
+        </div>
+    </div>
 </div>

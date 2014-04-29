@@ -9,6 +9,5 @@ tags:
     - trick
 ---
 
--yum install netpbm-progs
--python script
--bash script
+A quick overview of a trick I use to generate the favicon on this blog
+whenever this blog is deployed.
