@@ -14,8 +14,6 @@ wget $URL -O /tmp/favicon.png
 
 pngtopnm -mix /tmp/favicon.png > tmp_logo.pnm
 
-rm -f favicon.ico _site/favicon.ico
-
 pnmscale -xsize=32 -ysize=32 ./tmp_logo.pnm > tmp_logo32.ppm
 pnmscale -xsize=16 -ysize=16 ./tmp_logo.pnm > tmp_logo16.ppm
 
