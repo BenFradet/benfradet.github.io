@@ -1,7 +1,7 @@
 domain: benfradet.github.io
 author: Benjamin Fradet
 email: benjamin.fradet@gmail.com
-title: Ben Fradet's website
+title: Ben Fradet's blog
 
 permalink: /blog/:year/:month/:day/:title
 pygments: true
