@@ -8,8 +8,8 @@ image: legend.png
 ---
 
 If you still don't use [ggplot2](https://github.com/hadley/ggplot2) or, as I do,
-have to use the old and finicky plot() function read on to discover a trick I
-use to display a legend outside of the plotting area.
+have to use the old and finicky plot() function, read on to discover a trick I
+use to display a legend outside the plotting area.
 
 As en example, I am going to apply the 
 [principal component analysis](http://en.wikipedia.org/wiki/Principal_component_analysis) 
