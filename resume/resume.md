@@ -23,7 +23,10 @@
 ### Experience
 
 **SAP** *Software engineer intern* __2013 to 2014__
-1. 
+    Made an internal testing tool compatible with new software running on SAP Hana.
+    Built a data warehouse and the dashboards/monitoring tools associated.
+    Developed a new way of visualizing internal processes.
+    **Technical environment** C#, Microsoft SQL Server, SAP Hana, WPF, WCF
 
 ------
 
