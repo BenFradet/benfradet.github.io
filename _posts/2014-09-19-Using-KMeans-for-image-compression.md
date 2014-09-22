@@ -2,7 +2,8 @@
 layout: post
 title: Using K-means for image compression
 categories:
-    - how-to
+    - machine learning
+    - tutorial
     - Octave
 ---
 
