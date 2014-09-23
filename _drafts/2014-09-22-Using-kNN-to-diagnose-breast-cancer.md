@@ -36,6 +36,8 @@ datasets of UCI](http://archive.ics.uci.edu/ml)
 You can find the code for this post on
 [GitHub](https://github.com/BenFradet/kNNPost).
 
+<br>
+
 ### Data exploration and data transformation
 <br>
 
@@ -103,6 +105,19 @@ wdbc$diagnosis <- factor(wdbc$diagnosis, levels = c('B', 'M'),
     labels = c('Benign', 'Malignant'))
 {% endhighlight %}
 
+#### Random permutation
+
+Another thing we will need to is to randomly permute our examples in order to
+avoid any kind of ordering which might be already present in the dataset. This
+is important because if the dataset were ordered by diagnosis for example and if
+we were to split our dataset between a training set and a test set, the test set
+would be filled by either only benign or malignant tumors to which the algorithm
+wouldn't have been confronted against during the training phase.
+
+{% highlight R %}
+wdbc <- wdbc[sample(nrow(wdbc)), ]
+{% endhighlight %}
+
 #### Features scaling
 
 If you have a look at the range of the different mean features with:
@@ -158,8 +173,41 @@ You can check that the means of every feature is null now:
 summary(wdbcNormalized[c('radius_mean', 'area_worst', 'symmetry_se')])
 {% endhighlight %}
 
-#### Random permutation
+#### Splitting the dataset in two: training and test sets
 
-One last thing we will need to is to randomly permute our examples in order to
-avoid any kind of ordering which might be already present in the dataset. This
-is important because...
+We will have to split our dataset in order to train our algorithm (training set)
+and then evaluate its performance (test set).
+
+A good rule of thumb is to take 75% of the dataset for the training and leave
+the rest as a test set.
+We learned from [the dataset description](http://archive.ics.uci.edu/ml/machine-learning-databases/breast-cancer-wisconsin/wdbc.names)
+that there were 569 examples in our dataset, so we'll take the first 427
+examples as our training set and the last 142 as our test set.
+
+{% highlight R %}
+wdbcTraining <- wdbcNormalized[1:427, ]
+wdbcTest <- wdbcNormalized[428:569, ]
+{% endhighlight %}
+
+We will also need the diagnosis feature as a separate factor in order to use the
+`knn` function which we'll use later in this post.
+
+{% highlight R %}
+wdbcTrainingLabels <- wbdc[1:427, 1]
+wdbcTestLabels <- wdbc[428:569, 1]
+{% endhighlight %}
+
+<br>
+
+### Running kNN
+
+We are now ready to use the `knn` function contained in the `class` package.
+The function takes four arguments:
+
+  - `train` which is our training set
+  - `test` the training set
+  - `class` which should be a factor containing the class for the training set
+  - `k` the number of nearest neighbors to consider in order to predict the
+class of a new example
+
+#### Choosing the parameter k
