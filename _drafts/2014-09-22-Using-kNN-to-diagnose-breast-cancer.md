@@ -58,6 +58,8 @@ Another useful nugget of information in this document is that there are no
 missing attribute values in the dataset so we won't have to do much data
 transformation which is great.
 
+<br>
+
 #### Adding the names of the features in the dataset
 
 One thing you will notice when downloading [the dataset](http://archive.ics.uci.edu/ml/machine-learning-databases/breast-cancer-wisconsin/wdbc.data)
@@ -79,6 +81,8 @@ fractal_dimension_largest
 {% endhighlight %}
 
 The modified dataset can be found on [GitHub](https://github.com/BenFradet/kNNPost/blob/master/wdbc.data).
+
+<br>
 
 #### Reading data into R
 
@@ -105,6 +109,8 @@ wdbc$diagnosis <- factor(wdbc$diagnosis, levels = c('B', 'M'),
     labels = c('Benign', 'Malignant'))
 {% endhighlight %}
 
+<br>
+
 #### Random permutation
 
 Another thing we will need to is to randomly permute our examples in order to
@@ -118,7 +124,9 @@ wouldn't have been confronted against during the training phase.
 wdbc <- wdbc[sample(nrow(wdbc)), ]
 {% endhighlight %}
 
-#### Features scaling
+<br>
+
+#### Feature scaling
 
 If you have a look at the range of the different mean features with:
 
@@ -173,6 +181,8 @@ You can check that the means of every feature is null now:
 summary(wdbcNormalized[c('radius_mean', 'area_worst', 'symmetry_se')])
 {% endhighlight %}
 
+<br>
+
 #### Splitting the dataset in two: training and test sets
 
 We will have to split our dataset in order to train our algorithm (training set)
@@ -199,7 +209,11 @@ wdbcTestLabels <- wdbc[428:569, 1]
 
 <br>
 
-### Running kNN
+### Training our model
+
+<br>
+
+#### Running kNN
 
 We are now ready to use the `knn` function contained in the `class` package.
 The function takes four arguments:
@@ -210,4 +224,51 @@ The function takes four arguments:
   - `k` the number of nearest neighbors to consider in order to predict the
 class of a new example
 
+This function will give us back a factor containing the predicted class for
+each example in the training set. Since we have already stored the real class
+in our test set, we will be able to compare both and evaluate the performace of
+our algorithm.
+
+<br>
+
 #### Choosing the parameter k
+
+A good place to start when choosing k is to pick the square root of the number
+of examples in our training dataset. Here we have 427 examples in our training
+set, and so the square root of 427 is approximately 21. Keep in mind that you
+are not stuck with this value, and it is often a good idea to fiddle around the
+value of k to see if we can get better results as we will see later in this
+post.
+
+We are now ready to use the `knn` function:
+
+{% highlight R %}
+k <- 21
+wdbcPredictedClass <- knn(train = wdbcTraining,
+                          test = wdbcTest,
+                          cl = wbdcTrainingLabels,
+                          k)
+{% endhighlight %}
+
+<br>
+
+### Evaluating the performance of our model
+
+<br>
+
+You can have a pretty good idea of how your model is performing by computing
+the percentage of right predictions the algorithm made:
+
+{% highlight R %}
+actualVsPredicted <- cbind(wdbcTestLabels, wdbcPredictedClass)
+colnames(actualVsPredicted) <- c('actual', 'predicted')
+percentage <- sum(apply(actualVsPredicted, 1,
+                        function(row) { ifelse(row[1] == row[2], 1, 0) }
+        )) / dim(actualVsPredicted)[1]
+{% endhighlight %}
+
+You will notice that we lose the factor class when we perform the `cbind` and we
+are left with 1 for Benign and 2 for Malignant. Here, it doesn't really matter
+for the computation of our percentage of right predictions.
+
+I personally get around 93% of right predictions.
