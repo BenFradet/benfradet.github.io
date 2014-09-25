@@ -16,11 +16,10 @@ along with a couple of packages:
 
   - [class](http://cran.r-project.org/web/packages/class/index.html) which
 contains various functions related to classification and notably the `knn`
-function
+function which will be used in this post
   - [gmodels](http://cran.r-project.org/web/packages/gmodels/index.html) which
 will be useful to us towards the end of this post when we will want to evaluate
-the performance of our algorithm with the `CrossTable` function.
-
+the performance of our algorithm with the `CrossTable` function
 
 As a reminder, you can install a package in R with the following command:
 
@@ -31,7 +30,7 @@ install.packages("name_of_the_package")
 We will also need a dataset to apply the k-nearest neighbors algorithm. I chose
 [the popular breast cancer data set](http://archive.ics.uci.edu/ml/datasets/Breast+Cancer+Wisconsin+%28Diagnostic%29)
 which is publicy available and comes from [the repository of machine learning
-datasets of UCI](http://archive.ics.uci.edu/ml)
+datasets of UCI](http://archive.ics.uci.edu/ml).
 
 You can find the code for this post on
 [GitHub](https://github.com/BenFradet/kNNPost).
@@ -52,7 +51,7 @@ and malignant, etc.
 
 We learn that there are actually 10 numeric features which are measured for each
 cell nucleus and for each of these features the mean, the standard error and
-the largest (or "worst") are stored in the dataset.
+the largest (or "worst") values are stored in the dataset.
 
 Another useful nugget of information in this document is that there are no
 missing attribute values in the dataset so we won't have to do much data
@@ -116,9 +115,10 @@ wdbc$diagnosis <- factor(wdbc$diagnosis, levels = c('B', 'M'),
 Another thing we will need to is to randomly permute our examples in order to
 avoid any kind of ordering which might be already present in the dataset. This
 is important because if the dataset were ordered by diagnosis for example and if
-we were to split our dataset between a training set and a test set, the test set
-would be filled by either only benign or malignant tumors to which the algorithm
-wouldn't have been confronted against during the training phase.
+we were to split our dataset between a training set and a test set, as we will
+do later, the test set would be filled by either only benign or malignant tumors
+to which the algorithm wouldn't have been confronted against during the training
+phase.
 
 {% highlight R %}
 wdbc <- wdbc[sample(nrow(wdbc)), ]
@@ -167,15 +167,15 @@ You can see that there are ranges of features which are 1000 times bigger than
 others, this is a problem because since the kNN algorithm relies on distance
 measurement it will give more importance to features with larger values.
 
-In order to prevent our algorithm from giving too much importance a few
-feature, we will need to normalize them. One way to do so is to use the `scale`
+In order to prevent our algorithm from giving too much importance to a few
+features, we will need to normalize them. One way to do so is to use the `scale`
 function:
 
 {% highlight R %}
 wdbcNormalized <- as.data.frame(scale(wdbc[-1]))
 {% endhighlight %}
 
-You can check that the means of every feature is null now:
+You can check that the mean of every feature is null now:
 
 {% highlight R %}
 summary(wdbcNormalized[c('radius_mean', 'area_worst', 'symmetry_se')])
@@ -220,34 +220,34 @@ The function takes four arguments:
 
   - `train` which is our training set
   - `test` the training set
-  - `class` which should be a factor containing the class for the training set
+  - `class` which should be a factor containing the classes of the training set
   - `k` the number of nearest neighbors to consider in order to predict the
 class of a new example
 
 This function will give us back a factor containing the predicted class for
-each example in the training set. Since we have already stored the real class
-in our test set, we will be able to compare both and evaluate the performace of
-our algorithm.
+each example in the test set. Since we have already stored the actual classes of
+our test set in the `wdbcTestLabels` variable, we will be able to compare both
+and evaluate the performace of the algorithm.
 
 <br>
 
 #### Choosing the parameter k
 
 A good place to start when choosing k is to pick the square root of the number
-of examples in our training dataset. Here we have 427 examples in our training
+of examples in our training set. Here we have 427 examples in our training
 set, and so the square root of 427 is approximately 21. Keep in mind that you
-are not stuck with this value, and it is often a good idea to fiddle around the
-value of k to see if we can get better results as we will see later in this
+are not stuck with this value, and it is often a good idea to fiddle around with
+the value of k to see if we can get better results as we will see later in this
 post.
 
 We are now ready to use the `knn` function:
 
 {% highlight R %}
 k <- 21
-wdbcPredictedClass <- knn(train = wdbcTraining,
-                          test = wdbcTest,
-                          cl = wbdcTrainingLabels,
-                          k)
+wdbcPredictedLabels <- knn(train = wdbcTraining,
+                           test = wdbcTest,
+                           cl = wbdcTrainingLabels,
+                           k)
 {% endhighlight %}
 
 <br>
@@ -260,7 +260,7 @@ You can have a pretty good idea of how your model is performing by computing
 the percentage of right predictions the algorithm made:
 
 {% highlight R %}
-actualVsPredicted <- cbind(wdbcTestLabels, wdbcPredictedClass)
+actualVsPredicted <- cbind(wdbcTestLabels, wdbcPredictedLabels)
 colnames(actualVsPredicted) <- c('actual', 'predicted')
 percentage <- sum(apply(actualVsPredicted, 1,
                         function(row) { ifelse(row[1] == row[2], 1, 0) }
@@ -271,4 +271,87 @@ You will notice that we lose the factor class when we perform the `cbind` and we
 are left with 1 for Benign and 2 for Malignant. Here, it doesn't really matter
 for the computation of our percentage of right predictions.
 
-I personally get around 93% of right predictions.
+I personally get around 96% of right predictions. This result depends on how
+"lucky" you were with your random permutation. If there are atypical examples
+contained only in the test set, your model didn't learn from them and,
+consequently, they might have been misclassified.
+
+Another way to evaluate the performance of your algorithm is to create a
+`CrossTable` to check on how we misclassified our examples:
+
+{% highlight R %}
+CrossTable(x = wdbcTestLabels, y = wdbcPredictedLabels,
+           prop.chisq = F, dnn = c('actual', 'predicted'))
+{% endhighlight %}
+
+This is the table I get with my particular permutation, as previously
+mentioned, your results may differ:
+<br>
+
+|                  | predicted 
+|      actual      |    Benign | &emsp;Malignant | &emsp;Row Total | 
+|------------------|----------:|----------------:|----------------:|
+|  **Benign**      |        94 |               0 |              94 | 
+|                  |     1.000 |           0.000 |           0.662 | 
+|                  |     0.940 |           0.000 |                 | 
+|                  |     0.662 |           0.000 |                 | 
+|                  |           |                 |                 |
+| **Malignant**    |         6 |              42 |              48 | 
+|                  |     0.125 |           0.875 |           0.338 | 
+|                  |     0.060 |           1.000 |                 | 
+|                  |     0.042 |           0.296 |                 | 
+|                  |           |                 |                 |
+|**Column Total**  |       100 |              42 |             142 | 
+|                  |     0.704 |           0.296 |                 | 
+
+<br>
+We can see that we predicted 6 examples as benign although they were malignant
+(false negatives).
+
+Additionally, you can compute other indicators on how your algorithm is
+performing:
+
+For example, you can measure the precision which represents of all
+examples where we predicted the tumor was malignant, what fraction of examples
+is actually malignant?
+
+![precision](http://bit.ly/1u2x4H6)
+
+Here we see that we have perfect precision since we didn't have any false
+positives.
+
+We can also compute the recall:
+
+![recall](http://bit.ly/1u2wMQD)
+
+The recall represents of all examples where the tumor was malignant, what
+fraction did we correctly detect as being malignant? That's where our algorithm
+is not performing as well, we only detected 87.5% of malignant tumors as being
+malignant, which leaves us which 12.5% of malignant tumors which we classified
+as benign.
+
+From the values of both the precision and recall we can compute
+[the F1 score](http://en.wikipedia.org/wiki/F1_score) which measures our test's
+accuracy, it can be thought of as a weighted average between precision and
+recall:
+
+![f1Score](http://bit.ly/1CoESpt)
+
+This score prevents us from classifying every test example as malignant in order
+to avoid false negatives (predict benign tumors although they are malignant)
+because in this case our precision would greatly decrease (due to the fact that
+we would have 94 false positives).
+
+There are several ways you can improve the algorithm's performance one of which
+is to toy around with the value of the parameter k. For example, one could
+imagine trying a few odd numbers around 21 and computing the percentage of
+misclassified examples as well as the number of false positives and false
+negatives. It's important to choose an odd k to lessen the risk of randomly
+choosing between malignant or benign in case there is the same number of votes
+for each class. For example, if we were to choose 20 as k and 10 of the
+nearest neighbors of an example were malignant and the 10 others were benign,
+the algorithm would choose randomly between both.
+
+I hope this was an interesting introduction to the k-nearest neighbors
+algorithm. Do not hesitate to email me if you're having difficulties running or
+understanding the code.
