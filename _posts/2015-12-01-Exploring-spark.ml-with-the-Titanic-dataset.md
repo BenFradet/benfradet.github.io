@@ -11,8 +11,31 @@ It's been a while since my last post, and in this post I'm going to talk about
 a technology I've been using for almost a year now:
 [Apache Spark](http://spark.apache.org/) and more particularly MLlib which is
 the Spark submodule dedicated to machine learning. This submodule is split
-into two: [spark.mllib] which is built on top of the old RDDs and [spark.ml]
-which is built on top of the DataFrame API. In this blogpost, I'll talk
+into two: [spark.mllib](http://spark.apache.org/docs/latest/mllib-guide.html#mllib-types-algorithms-and-utilities)
+which is built on top of the old RDDs and [spark.ml](http://spark.apache.org/docs/latest/mllib-guide.html#sparkml-high-level-apis-for-ml-pipelines)
+which is built on top of the DataFrame API. In this post, I'll talk
 exclusively about spark.ml.
 
-If you want to follow this tutorial you will have to down
+If you want to follow this tutorial you will have to download spark which can
+be done [here](http://spark.apache.org/downloads.html). Additionnally, you will
+need a few dependencies in order to build your project:
+
+{% highlight text %}
+groupId: org.apache.spark
+artifactId: spark-core_2.10
+version: 1.5.2
+scope: provided{% endhighlight %}
+{% highlight text %}
+groupId: org.apache.spark
+artifactId: spark-sql_2.10
+version: 1.5.2
+scope: provided{% endhighlight %}
+{% highlight text %}
+groupId: org.apache.spark
+artifactId: spark-mllib_2.10
+version: 1.5.2
+scope: provided{% endhighlight %}
+{% highlight text %}
+groupId: com.databricks
+artifactId: spark-csv_2.10
+version: 1.2.0{% endhighlight %}
