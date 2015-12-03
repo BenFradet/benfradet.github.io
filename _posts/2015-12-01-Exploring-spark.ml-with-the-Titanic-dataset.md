@@ -20,22 +20,9 @@ If you want to follow this tutorial you will have to download spark which can
 be done [here](http://spark.apache.org/downloads.html). Additionnally, you will
 need a few dependencies in order to build your project:
 
-{% highlight text %}
-groupId: org.apache.spark
-artifactId: spark-core_2.10
-version: 1.5.2
-scope: provided{% endhighlight %}
-{% highlight text %}
-groupId: org.apache.spark
-artifactId: spark-sql_2.10
-version: 1.5.2
-scope: provided{% endhighlight %}
-{% highlight text %}
-groupId: org.apache.spark
-artifactId: spark-mllib_2.10
-version: 1.5.2
-scope: provided{% endhighlight %}
-{% highlight text %}
-groupId: com.databricks
-artifactId: spark-csv_2.10
-version: 1.2.0{% endhighlight %}
+| groupId           | artifactId        | version  | scope     |
+| ----------------- |------------------ |----------|---------- |
+| org.apache.spark  | spark-core_2.10   | 1.5.2    | provided  |
+| org.apache.spark  | spark-sql_2.10    | 1.5.2    | compile   |
+| org.apache.spark  | spark-mllib_2.10  | 1.5.2    | compile   |
+| com.databricks    | spark-csv_2.10    | 1.2.0    | compile   |
