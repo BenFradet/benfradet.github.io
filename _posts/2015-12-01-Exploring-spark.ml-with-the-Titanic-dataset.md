@@ -47,4 +47,18 @@ was in, hers/his age or the fare the passenger paid to get on board.
 You can find the code for this post on [Github](https://github.com/BenFradet/kaggle).
 <br>
 
-### 
+### Data exploration and data transformation
+<br>
+
+#### Getting to know the Titanic dataset
+
+You can find a description of the features on [Kaggle](https://www.kaggle.com/c/titanic/data).
+
+The dataset is split into `train.csv` and `test.csv`. As you've probably already
+assumed, `train.csv` will contain labeled data (the `Survived` column will be
+filled) and `test.csv` will be unlabeled data. The goal is to predict for each
+example/passenger in `test.csv` whether or not she/he survived.
+
+#### Reading the Titanic dataset into Spark
+
+
