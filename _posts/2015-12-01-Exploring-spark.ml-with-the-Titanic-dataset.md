@@ -61,4 +61,55 @@ example/passenger in `test.csv` whether or not she/he survived.
 
 #### Reading the Titanic dataset into Spark
 
+Since the data is in csv format, we'll use [spark-csv](https://github.com/databricks/spark-csv)
+which will parse our csv data and give us back Dataframes.
 
+To load the `train.csv` and `test.csv` file, I wrote the following function:
+
+{% highlight java %}
+def loadData(
+  trainFile: String,
+  testFile: String,
+  sc: SparkContext
+): (DataFrame, DataFrame) = {
+  val sqlContext = new SQLContext(sc)
+
+  val nullable = true
+  val schemaArray = Array(
+    StructField("PassengerId", IntegerType, nullable),
+    StructField("Survived", IntegerType, nullable),
+    StructField("Pclass", IntegerType, nullable),
+    StructField("Name", StringType, nullable),
+    StructField("Sex", StringType, nullable),
+    StructField("Age", FloatType, nullable),
+    StructField("SibSp", IntegerType, nullable),
+    StructField("Parch", IntegerType, nullable),
+    StructField("Ticket", StringType, nullable),
+    StructField("Fare", FloatType, nullable),
+    StructField("Cabin", StringType, nullable),
+    StructField("Embarked", StringType, nullable)
+  )
+
+  val trainSchema = StructType(schemaArray)
+  val testSchema = StructType(schemaArray.filter(p => p.name != "Survived"))
+
+  val csvFormat = "com.databricks.spark.csv"
+
+  val trainDF = sqlContext.read
+  .format(csvFormat)
+  .option("header", "true")
+  .schema(trainSchema)
+  .load(trainFile)
+
+  val testDF = sqlContext.read
+  .format(csvFormat)
+  .option("header", "true")
+  .schema(testSchema)
+  .load(testFile)
+
+  (trainDF, testDF)
+}
+{% endhighlight %}
+
+This function takes the path to the `train.csv` and `test.csv` as the two
+arguments
