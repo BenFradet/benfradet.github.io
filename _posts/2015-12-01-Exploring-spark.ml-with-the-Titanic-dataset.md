@@ -66,14 +66,12 @@ which will parse our csv data and give us back Dataframes.
 
 To load the `train.csv` and `test.csv` file, I wrote the following function:
 
-{% highlight java %}
+{% highlight scala %}
 def loadData(
   trainFile: String,
   testFile: String,
-  sc: SparkContext
+  sqlContext: SQLContext
 ): (DataFrame, DataFrame) = {
-  val sqlContext = new SQLContext(sc)
-
   val nullable = true
   val schemaArray = Array(
     StructField("PassengerId", IntegerType, nullable),
@@ -111,5 +109,11 @@ def loadData(
 }
 {% endhighlight %}
 
-This function takes the path to the `train.csv` and `test.csv` as the two
-arguments
+This function takes the paths to the `train.csv` and `test.csv` files as the two
+first arguments and a `sqlContext` which will have been initialized beforehand
+like so:
+
+{% highlight scala %}
+val sc = new SparkContext(new SparkConf().setAppName("Titanic"))
+val sqlContext = new SQLContext(sc)
+{% endhighlight %}
