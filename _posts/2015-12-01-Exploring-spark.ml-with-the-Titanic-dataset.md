@@ -59,7 +59,7 @@ assumed, `train.csv` will contain labeled data (the `Survived` column will be
 filled) and `test.csv` will be unlabeled data. The goal is to predict for each
 example/passenger in `test.csv` whether or not she/he survived.
 
-#### Reading the Titanic dataset into Spark
+#### Loading the Titanic dataset
 
 Since the data is in csv format, we'll use [spark-csv](https://github.com/databricks/spark-csv)
 which will parse our csv data and give us back Dataframes.
@@ -117,3 +117,9 @@ like so:
 val sc = new SparkContext(new SparkConf().setAppName("Titanic"))
 val sqlContext = new SQLContext(sc)
 {% endhighlight %}
+
+Although not mandatory, we define the schema for the data as it is the same
+for both files except for the `Survived` column.
+
+Then we use [spark-csv](https://github.com/databricks/spark-csv) to load our
+data.
