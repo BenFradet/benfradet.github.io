@@ -121,5 +121,69 @@ val sqlContext = new SQLContext(sc)
 Although not mandatory, we define the schema for the data as it is the same
 for both files except for the `Survived` column.
 
-Then we use [spark-csv](https://github.com/databricks/spark-csv) to load our
+Then, we use [spark-csv](https://github.com/databricks/spark-csv) to load our
 data.
+
+#### Feature engineering
+
+Next, we'll do a bit of feature engineering on this dataset.
+
+If you have a closer look at the `Name` column, you probably see that there is
+some kind of title included in the name such as "Sir", "Mr", "Mrs", etc.
+I think it is a valuable piece of information and I think it can influence
+whether someone survived or not, that's why I extracted it in its own column.
+
+My first intuition was to extract this title with a regex with the help of a
+UDF (for user-defined function):
+
+{% highlight scala %}
+val Pattern = ".*, (.*?)\\..*".r
+val title: (String => String) = {
+  case Pattern(t) => t
+  case _ => ""
+}
+val titleUDF = udf(title)
+
+val dfWithTitle = df.withColumn("Title", titleUDF(col("Name")))
+{% endhighlight %}
+
+Unfortunately, every passenger's name doesn't comply with this regex and I had
+to face some noise. As a result, I just looked for the distinct titles produced
+by my UDF and adapted it a bit:
+
+{% highlight scala %}
+val Pattern = ".*, (.*?)\\..*".r
+val titles = Map(
+  "Mrs"    -> "Mrs",
+  "Lady"   -> "Mrs",
+  "Mme"    -> "Mrs",
+  "Ms"     -> "Ms",
+  "Miss"   -> "Miss",
+  "Mlle"   -> "Miss",
+  "Master" -> "Master",
+  "Rev"    -> "Rev",
+  "Don"    -> "Mr",
+  "Sir"    -> "Sir",
+  "Dr"     -> "Dr",
+  "Col"    -> "Col",
+  "Capt"   -> "Col",
+  "Major"  -> "Col"
+)
+val title: ((String, String) => String) = {
+  case (Pattern(t), sex) => titles.get(t) match {
+    case Some(tt) => tt
+    case None     =>
+        if (sex == "male") "Mr"
+        else "Mrs"
+  }
+  case _ => "Mr"
+}
+val titleUDF = udf(title)
+
+val dfWithTitle = df.withColumn("Title", titleUDF(col("Name"), col("Sex")))
+{% endhighlight %}
+
+I, then, wanted to represent the family size of each passenger with the help of
+the `Parch` column (which represents the number of parents/children aboard the
+Titanic) and the `SibSp` column which represents the number of siblings/spouses
+aboard:
