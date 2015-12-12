@@ -204,3 +204,19 @@ val dfWithFamilySize = df
 
 The family size UDF just does the sum of the `SibSp` and the `Parch` columns
 plus one.
+
+#### Handling NA values
+
+You have two options when dealing with NA:
+
+  - either drop them through:
+    {% highlight scala %}df.na.drop(){% endhighlight %}
+  - or fill them with default values with:
+    {% highlight scala %}df.na.fill(){% endhighlight %}
+
+After noticing, that NA values were present in the `Age`, `Fare` and `Embarked`
+columns, I chose to replace them:
+
+  - with the average age for the `Age` column
+  - with the average fare the `Fare` column by their average
+  - with "S" for the `Embarked` column which represents Southampton
