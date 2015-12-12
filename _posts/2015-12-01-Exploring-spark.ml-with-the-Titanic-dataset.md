@@ -149,7 +149,9 @@ val dfWithTitle = df.withColumn("Title", titleUDF(col("Name")))
 
 Unfortunately, every passenger's name doesn't comply with this regex and I had
 to face some noise. As a result, I just looked for the distinct titles produced
-by my UDF and adapted it a bit:
+by my UDF
+{% highlight scala %}dfWithTitle.select("Title").distinct(){% endhighlight %}
+and adapted it a bit:
 
 {% highlight scala %}
 val Pattern = ".*, (.*?)\\..*".r
@@ -183,7 +185,22 @@ val titleUDF = udf(title)
 val dfWithTitle = df.withColumn("Title", titleUDF(col("Name"), col("Sex")))
 {% endhighlight %}
 
+This UDF tries to match on the previously defined pattern `Pattern`. If the
+regex matches we'll try to find the title in our `titles` map. Finally, if we
+don't find it, we'll define the title based on the `Sex` column: "Mr" if "male",
+"Mrs" otherwise.
+
 I, then, wanted to represent the family size of each passenger with the help of
 the `Parch` column (which represents the number of parents/children aboard the
 Titanic) and the `SibSp` column which represents the number of siblings/spouses
 aboard:
+
+{% highlight scala %}
+val familySize: ((Int, Int) => Int) = (sibSp: Int, parCh: Int) => sibSp + parCh + 1
+val familySizeUDF = udf(familySize)
+val dfWithFamilySize = df
+  .withColumn("FamilySize", familySizeUDF(col("SibSp"), col("Parch")))
+{% endhighlight %}
+
+The family size UDF just does the sum of the `SibSp` and the `Parch` columns
+plus one.
