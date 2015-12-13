@@ -45,7 +45,7 @@ if a passenger survived from a set of features such as the class the passenger
 was in, hers/his age or the fare the passenger paid to get on board.
 
 You can find the code for this post on [Github](https://github.com/BenFradet/kaggle).
-<br>
+<br><br>
 
 ### Data exploration and data transformation
 <br>
@@ -58,6 +58,7 @@ The dataset is split into `train.csv` and `test.csv`. As you've probably already
 assumed, `train.csv` will contain labeled data (the `Survived` column will be
 filled) and `test.csv` will be unlabeled data. The goal is to predict for each
 example/passenger in `test.csv` whether or not she/he survived.
+<br><br>
 
 #### Loading the Titanic dataset
 
@@ -123,6 +124,7 @@ for both files except for the `Survived` column.
 
 Then, we use [spark-csv](https://github.com/databricks/spark-csv) to load our
 data.
+<br><br>
 
 #### Feature engineering
 
@@ -204,6 +206,7 @@ val dfWithFamilySize = df
 
 The family size UDF just does the sum of the `SibSp` and the `Parch` columns
 plus one.
+<br><br>
 
 #### Handling NA values
 
@@ -214,9 +217,45 @@ You have two options when dealing with NA:
   - or fill them with default values with:
     {% highlight scala %}df.na.fill(){% endhighlight %}
 
-After noticing, that NA values were present in the `Age`, `Fare` and `Embarked`
+After noticing that NA values were present in the `Age`, `Fare` and `Embarked`
 columns, I chose to replace them:
 
   - with the average age for the `Age` column
-  - with the average fare the `Fare` column by their average
+  - with the average fare for the `Fare` column
   - with "S" for the `Embarked` column which represents Southampton
+
+In order to do this, I calculated the average of the `Age` column like so:
+
+{% highlight scala %}
+val avgAge = trainDF.select("Age").unionAll(testDF.select("Age"))
+  .agg(avg("Age"))
+  .collect() match {
+  case Array(Row(avg: Double)) => avg
+  case _ => 0
+}
+{% endhighlight %}
+
+Same thing for the `Fare` column. I, then, filled my dataset with those
+averages:
+
+{% highlight scala %}
+val dfFilled = df.na.fill(Map("Fare" -> avgFare, "Age" -> avgAge)
+{% endhighlight %}
+
+Another option, which I won't cover here, is to train a regression model on the
+`Age` column and use this model to predict the age for the examples where the
+`Age` column is NA. Same thing goes for handling NA for the `Fare` column.
+
+However, spark-csv treats NA strings as empty strings instead of NAs (this is a
+known bug described [here](https://github.com/databricks/spark-csv/issues/86)).
+This is why I coded a UDF which transforms empty strings in the `Embarked`
+column to "S" for Southampton:
+
+{% highlight scala %}
+val embarked: (String => String) = {
+  case "" => "S"
+  case a  => a
+}
+val embarkedUDF = udf(embarked)
+val dfFilled = df.withColumn("Embarked", embarkedUDF(col("Embarked")))
+{% endhighlight %}
