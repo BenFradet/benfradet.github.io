@@ -259,3 +259,11 @@ val embarked: (String => String) = {
 val embarkedUDF = udf(embarked)
 val dfFilled = df.withColumn("Embarked", embarkedUDF(col("Embarked")))
 {% endhighlight %}
+
+### Building the ML pipeline
+
+What's very interesting about spark.ml compared to spark.mllib, aside from
+dealing with DataFrames instead of RDDs, is the fact that you can build and tune
+your own machine learning pipeline as we'll see in a bit.
+
+desc + link vers le ml programming guide
