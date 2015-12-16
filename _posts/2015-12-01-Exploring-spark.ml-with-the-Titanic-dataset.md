@@ -315,7 +315,7 @@ matter whether it is indeed categorical or not. In our case, there are
 categorical features with quite a few categories (`Title` for example) and
 quantitative features without too many different values (such as `SibSp` or
 `Parch`). That's why I don't think this is the way to go.
-  2. Index every feature, which you know is categorical, one by one with
+2. Index every feature, which you know is categorical, one by one with
 [StringIndexer](http://spark.apache.org/docs/latest/ml-features.html#stringindexer).
 At the time of this writing, there is, unfortunately, not a way to create a
 single `StringIndexer` which will index all your categorical features in one
@@ -328,10 +328,10 @@ features is getting indexed:
 {% highlight scala %}
 val categoricalFeatColNames = Seq("Pclass", "Sex", "Embarked", "Title")
 val stringIndexers = categoricalFeatColNames.map { colName =>
-  new StringIndexer()
-    .setInputCol(colName)
-    .setOutputCol(colName + "Indexed")
-    .fit(allData)
+new StringIndexer()
+.setInputCol(colName)
+.setOutputCol(colName + "Indexed")
+.fit(allData)
 }
 {% endhighlight %}
 
@@ -339,8 +339,46 @@ We also index our label which corresponds to the `Survived` column:
 
 {% highlight scala %}
 val labelIndexer = new StringIndexer()
-  .setInputCol("Survived")
-  .setOutputCol("SurvivedIndexed")
-  .fit(allData)
+.setInputCol("Survived")
+.setOutputCol("SurvivedIndexed")
+.fit(allData)
 {% endhighlight %}
 <br><br>
+
+#### Assembling our features into one column
+
+Now that our indexing is done, we just need to assemble all our feature columns
+into one single feature column containing a vector regrouping all our features.
+To do that, we'll use the built-in
+[VectorAssembler](http://spark.apache.org/docs/latest/ml-features.html#vectorassembler)
+transformer:
+
+{% highlight scala %}
+val numericFeatColNames = Seq("Age", "SibSp", "Parch", "Fare", "FamilySize")
+val idxdCategoricalFeatColName = categoricalFeatColNames.map(_ + "Indexed")
+val allIdxdFeatColNames = numericFeatColNames ++ idxdCategoricalFeatColName
+val assembler = new VectorAssembler()
+  .setInputCols(Array(allIdxdFeatColNames: _*))
+  .setOutputCol("Features")
+{% endhighlight %}
+
+We'll now have two columns:
+
+- `SurvivedIndexed` containing our indexed label
+- `Features` containing a vector of our different features (quantitative and
+indexed categorical)
+<br><br>
+
+#### Using a classifier
+
+Now that our data is in the proper format expected by `spark.ml` we can use a
+classifier. Here I'll use a
+[RandomForestClassifier](http://spark.apache.org/docs/latest/ml-ensembles.html#random-forests)
+but since our data is properly formatted we can replace it by any `spark.ml`
+classifier we want:
+
+{% highlight scala %}
+val randomForest = new RandomForestClassifier()
+  .setLabelCol("SurvivedIndexed")
+  .setFeaturesCol("Features")
+{% endhighlight %}
