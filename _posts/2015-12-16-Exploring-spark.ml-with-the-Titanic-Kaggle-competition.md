@@ -266,7 +266,6 @@ val dfFilled = df.withColumn("Embarked", embarkedUDF(col("Embarked")))
 <br><br>
 
 ### Building the ML pipeline
-<br>
 
 What's very interesting about spark.ml compared to spark.mllib, aside from
 dealing with DataFrames instead of RDDs, is the fact that you can build and tune
@@ -421,7 +420,6 @@ the original ones.
 <br><br>
 
 ### Selecting the best model
-<br>
 
 In order to select the best model, you'll often find yourself performing a grid
 search over a set of parameters, for each combination of parameters do cross
@@ -523,7 +521,6 @@ We get `p = 3 x 3 x 2 = 18`, so our cross validation will train
 <br><br>
 
 ### Submitting the results to Kaggle
-<br>
 
 Now that we have our predictions, we just need to transform our data in order to
 fit the expected format by Kaggle and save it to a csv file:
