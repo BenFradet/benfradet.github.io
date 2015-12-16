@@ -382,3 +382,21 @@ val randomForest = new RandomForestClassifier()
   .setLabelCol("SurvivedIndexed")
   .setFeaturesCol("Features")
 {% endhighlight %}
+<br><br>
+
+#### Retrieving our original labels
+
+`IndexToString` is the reverse operation of `StringIndexer` and will convert
+back our indexes to the original labels so they can be interpretable. Indeed,
+as indicated in the [documentation for random forests](http://spark.apache.org/docs/latest/ml-ensembles.html#random-forests),
+the call on the `transform` method of the model produced by the
+`RandomForestClassifier` will produce a `prediction` column which will contain
+indexed labels which we need *unindexed*.
+
+{% highlight scala %}
+val labelConverter = new IndexToString()
+  .setInputCol("prediction")
+  .setOutputCol("predictedLabel")
+  .setLabels(labelIndexer.labels)
+{% endhighlight %}
+<br><br>
