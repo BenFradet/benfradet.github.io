@@ -108,6 +108,6 @@ table tr th :last-child, table tr td :last-child {
     margin-bottom: 0;
 }
 
-ul {
+ul, ol {
     list-style-position: inside;
 }
