@@ -276,3 +276,20 @@ transforms DataFrames with features into DataFrames with predictions.
 produce a `Transformer`. For example, a learning algorithm is an `Estimator`
 which trains on a DataFrame to produce a machine learning model (which is a
 `Transformer`.
+
+A pipeline is an ordered combination of `Transformers` and `Estimators`.
+
+#### Description of our pipeline
+
+In this post, we'll be training a random forest and since `spark.ml` can't
+handle categorical features or labels unless they are indexed, our first job
+will be to do just that.
+
+Then, we'll assemble all our feature columns into one vector column because
+every `spark.ml` machine learning algorithms expects that.
+
+Once this is done, we can train our random forest as our data is in the expected
+format.
+
+Finally, we'll have to *unindex* our labels so they can be interpretable by
+Kaggle.
