@@ -9,8 +9,10 @@ categories:
 
 It's been a while since my last post, and in this post I'm going to talk about
 a technology I've been using for almost a year now:
-[Apache Spark](http://spark.apache.org/). Basically, Spark lets you do data
-processing in a distributed manner. The project is subdivided in modules:
+[Apache Spark](http://spark.apache.org/).
+
+Basically, Spark lets you do data processing in a distributed manner. The
+project is subdivided in modules:
 
 - Spark streaming which lets you interact with streams of data
 - Spark SQL which aims to let you write SQL queries and execute them on your
@@ -259,8 +261,10 @@ val embarked: (String => String) = {
 val embarkedUDF = udf(embarked)
 val dfFilled = df.withColumn("Embarked", embarkedUDF(col("Embarked")))
 {% endhighlight %}
+<br><br>
 
 ### Building the ML pipeline
+<br>
 
 What's very interesting about spark.ml compared to spark.mllib, aside from
 dealing with DataFrames instead of RDDs, is the fact that you can build and tune
@@ -278,6 +282,7 @@ which trains on a DataFrame to produce a machine learning model (which is a
 `Transformer`.
 
 A pipeline is an ordered combination of `Transformers` and `Estimators`.
+<br><br>
 
 #### Description of our pipeline
 
@@ -293,3 +298,49 @@ format.
 
 Finally, we'll have to *unindex* our labels so they can be interpretable by
 Kaggle.
+<br><br>
+
+#### Indexing categorical features and labels
+
+Fortunately, there are already built-in transformers to index categorical
+features, you just have to choose between two options:
+
+  1. Assemble all your features into one vector (through
+[VectorAssembler](http://spark.apache.org/docs/latest/ml-features.html#vectorassembler))
+and use a
+[VectorIndexer](http://spark.apache.org/docs/latest/ml-features.html#vectorindexer).
+The problem with `VectorIndexer` is that it will index every feature which has
+less than `maxCategories` (which you can set with `setMaxCategories()`) no
+matter whether it is indeed categorical or not. In our case, there are
+categorical features with quite a few categories (`Title` for example) and
+quantitative features without too many different values (such as `SibSp` or
+`Parch`). That's why I don't think this is the way to go.
+  2. Index every feature, which you know is categorical, one by one with
+[StringIndexer](http://spark.apache.org/docs/latest/ml-features.html#stringindexer).
+At the time of this writing, there is, unfortunately, not a way to create a
+single `StringIndexer` which will index all your categorical features in one
+step (there is a PR going on to do just that
+[here](https://github.com/apache/spark/pull/9183) though).
+
+We wil proceed with option 2 in order to have a bit more control over which
+features is getting indexed:
+
+{% highlight scala %}
+val categoricalFeatColNames = Seq("Pclass", "Sex", "Embarked", "Title")
+val stringIndexers = categoricalFeatColNames.map { colName =>
+  new StringIndexer()
+    .setInputCol(colName)
+    .setOutputCol(colName + "Indexed")
+    .fit(allData)
+}
+{% endhighlight %}
+
+We also index our label which corresponds to the `Survived` column:
+
+{% highlight scala %}
+val labelIndexer = new StringIndexer()
+  .setInputCol("Survived")
+  .setOutputCol("SurvivedIndexed")
+  .fit(allData)
+{% endhighlight %}
+<br><br>
