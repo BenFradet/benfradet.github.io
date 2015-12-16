@@ -343,7 +343,7 @@ val labelIndexer = new StringIndexer()
 .setOutputCol("SurvivedIndexed")
 .fit(allData)
 {% endhighlight %}
-<br><br>
+<br>
 
 #### Assembling our features into one column
 
@@ -382,7 +382,7 @@ val randomForest = new RandomForestClassifier()
   .setLabelCol("SurvivedIndexed")
   .setFeaturesCol("Features")
 {% endhighlight %}
-<br><br>
+<br>
 
 #### Retrieving our original labels
 
@@ -399,4 +399,22 @@ val labelConverter = new IndexToString()
   .setOutputCol("predictedLabel")
   .setLabels(labelIndexer.labels)
 {% endhighlight %}
-<br><br>
+<br>
+
+#### Bringing it all together
+
+Since all our different steps have been implemented, we can create our pipeline:
+
+{% highlight scala %}
+val pipeline = new Pipeline().setStages(Array.concat(
+  stringIndexers.toArray,
+  Array(labelIndexer, assembler, randomForest, labelConverter)
+))
+{% endhighlight %}
+
+We first apply each `StringIndexer` for every one of our categorical feature and
+our label, we then assemble every feature into one column. Then, we train our
+random forest and we finally convert back the indexed labels predicted to the
+original ones.
+
+TODO: TOC
