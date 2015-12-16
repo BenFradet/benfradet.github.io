@@ -58,16 +58,16 @@ You can find the code for this post on [Github](https://github.com/BenFradet/kag
 
 You can find a description of the features on [Kaggle](https://www.kaggle.com/c/titanic/data).
 
-The dataset is split into `train.csv` and `test.csv`. As you've probably already
-assumed, `train.csv` will contain labeled data (the `Survived` column will be
-filled) and `test.csv` will be unlabeled data. The goal is to predict for each
-example/passenger in `test.csv` whether or not she/he survived.
+The dataset is split in two: `train.csv` and `test.csv`. As you've probably
+already guessed, `train.csv` will contain labeled data (the `Survived` column
+will be filled) and `test.csv` will be unlabeled data. The goal is to predict
+for each example/passenger in `test.csv` whether or not she/he survived.
 <br><br>
 
 #### Loading the Titanic dataset
 
 Since the data is in csv format, we'll use [spark-csv](https://github.com/databricks/spark-csv)
-which will parse our csv data and give us back Dataframes.
+which will parse our csv data and give us back `DataFrames`.
 
 To load the `train.csv` and `test.csv` file, I wrote the following function:
 
@@ -153,9 +153,9 @@ val titleUDF = udf(title)
 val dfWithTitle = df.withColumn("Title", titleUDF(col("Name")))
 {% endhighlight %}
 
-Unfortunately, every passenger's name doesn't comply with this regex and I had
-to face some noise. As a result, I just looked for the distinct titles produced
-by my UDF
+Unfortunately, every passenger's name doesn't comply with this regex and this
+resulted in some noise in the `Title` column. As a result, I just looked for the
+distinct titles produced by my UDF
 {% highlight scala %}dfWithTitle.select("Title").distinct(){% endhighlight %}
 and adapted it a bit:
 
@@ -198,8 +198,8 @@ don't find it, we'll define the title based on the `Sex` column: "Mr" if "male",
 
 I, then, wanted to represent the family size of each passenger with the help of
 the `Parch` column (which represents the number of parents/children aboard the
-Titanic) and the `SibSp` column which represents the number of siblings/spouses
-aboard:
+Titanic) and the `SibSp` column (which represents the number of siblings/spouses
+aboard):
 
 {% highlight scala %}
 val familySize: ((Int, Int) => Int) = (sibSp: Int, parCh: Int) => sibSp + parCh + 1
@@ -226,7 +226,7 @@ columns, I chose to replace them:
 
   - with the average age for the `Age` column
   - with the average fare for the `Fare` column
-  - with "S" for the `Embarked` column which represents Southampton
+  - with "S" for the `Embarked` column which represents the city of Southampton
 
 In order to do this, I calculated the average of the `Age` column like so:
 
@@ -248,7 +248,7 @@ val dfFilled = df.na.fill(Map("Fare" -> avgFare, "Age" -> avgAge)
 
 Another option, which I won't cover here, is to train a regression model on the
 `Age` column and use this model to predict the age for the examples where the
-`Age` column is NA. Same thing goes for handling NA for the `Fare` column.
+`Age` is NA. Same thing goes for handling NA for the `Fare` column.
 
 However, spark-csv treats NA strings as empty strings instead of NAs (this is a
 known bug described [here](https://github.com/databricks/spark-csv/issues/86)).
@@ -272,7 +272,7 @@ What's very interesting about spark.ml compared to spark.mllib, aside from
 dealing with DataFrames instead of RDDs, is the fact that you can build and tune
 your own machine learning pipeline as we'll see in a bit.
 
-There are two main concepts in `spark.ml` (extracted from the
+There are two main concepts in spark.ml (extracted from the
 [guide](http://spark.apache.org/docs/latest/ml-guide.html#main-concepts)):
 
   - `Transformers`, which are algorithms which transfrom a DataFrame into
@@ -288,38 +288,38 @@ A pipeline is an ordered combination of `Transformers` and `Estimators`.
 
 #### Description of our pipeline
 
-In this post, we'll be training a random forest and since `spark.ml` can't
+In this post, we'll be training a random forest and since spark.ml can't
 handle categorical features or labels unless they are indexed, our first job
 will be to do just that.
 
 Then, we'll assemble all our feature columns into one vector column because
-every `spark.ml` machine learning algorithms expects that.
+every spark.ml machine learning algorithm expects that.
 
 Once this is done, we can train our random forest as our data is in the expected
 format.
 
-Finally, we'll have to *unindex* our labels so they can be interpretable by
-Kaggle.
+Finally, we'll have to *unindex* our labels so they can be interpretable by us
+and the Kaggle tester.
 <br><br>
 
 #### Indexing categorical features and labels
 
 Fortunately, there are already built-in transformers to index categorical
-features, you just have to choose between two options:
+features, we just have to choose between two options:
 
-  1. Assemble all your features into one vector (through
+  1. Assemble all the features into one vector (through
 [VectorAssembler](http://spark.apache.org/docs/latest/ml-features.html#vectorassembler))
-and use a
+and then use a
 [VectorIndexer](http://spark.apache.org/docs/latest/ml-features.html#vectorindexer).
 The problem with `VectorIndexer` is that it will index every feature which has
-less than `maxCategories` (which you can set with `setMaxCategories()`) no
+less than `maxCategories` (which you can set with `setMaxCategories`) no
 matter whether it is indeed categorical or not. In our case, there are
 categorical features with quite a few categories (`Title` for example) and
 quantitative features without too many different values (such as `SibSp` or
 `Parch`). That's why I don't think this is the way to go.
 2. Index every feature, which you know is categorical, one by one with
 [StringIndexer](http://spark.apache.org/docs/latest/ml-features.html#stringindexer).
-At the time of this writing, there is, unfortunately, not a way to create a
+At the time of this writing, there is, unfortunately, no way to create a
 single `StringIndexer` which will index all your categorical features in one
 step (there is a PR going on to do just that
 [here](https://github.com/apache/spark/pull/9183) though).
@@ -330,10 +330,10 @@ features is getting indexed:
 {% highlight scala %}
 val categoricalFeatColNames = Seq("Pclass", "Sex", "Embarked", "Title")
 val stringIndexers = categoricalFeatColNames.map { colName =>
-new StringIndexer()
-.setInputCol(colName)
-.setOutputCol(colName + "Indexed")
-.fit(allData)
+  new StringIndexer()
+    .setInputCol(colName)
+    .setOutputCol(colName + "Indexed")
+    .fit(allData)
 }
 {% endhighlight %}
 
@@ -350,7 +350,7 @@ val labelIndexer = new StringIndexer()
 #### Assembling our features into one column
 
 Now that our indexing is done, we just need to assemble all our feature columns
-into one single feature column containing a vector regrouping all our features.
+into one single column containing a vector regrouping all our features.
 To do that, we'll use the built-in
 [VectorAssembler](http://spark.apache.org/docs/latest/ml-features.html#vectorassembler)
 transformer:
@@ -373,10 +373,10 @@ indexed categorical)
 
 #### Using a classifier
 
-Now that our data is in the proper format expected by `spark.ml` we can use a
+Now that our data is in the proper format expected by spark.ml we can use a
 classifier. Here I'll use a
 [RandomForestClassifier](http://spark.apache.org/docs/latest/ml-ensembles.html#random-forests)
-but since our data is properly formatted we can replace it by any `spark.ml`
+but since our data is properly formatted we can replace it by any spark.ml
 classifier we want:
 
 {% highlight scala %}
@@ -414,10 +414,10 @@ val pipeline = new Pipeline().setStages(Array.concat(
 ))
 {% endhighlight %}
 
-We first apply each `StringIndexer` for every one of our categorical feature and
-our label, we then assemble every feature into one column. Then, we train our
-random forest and we finally convert back the indexed labels predicted to the
-original ones.
+We first apply each `StringIndexer` for every one of our categorical features
+and our label, we then assemble every feature into one column. Then, we train
+our random forest and we finally convert back the indexed labels predicted to
+the original ones.
 <br><br>
 
 ### Selecting the best model
@@ -427,7 +427,7 @@ In order to select the best model, you'll often find yourself performing a grid
 search over a set of parameters, for each combination of parameters do cross
 validation and keep the best model according to some performance indicator.
 
-This is a bit tedious and `spark.ml` aims to simplify that with an easy-to-use
+This is a bit tedious and spark.ml aims to simplify that with an easy-to-use
 API.
 
 A quick reminder if you don't know what
@@ -438,8 +438,7 @@ data will be generated (2/3 of the data for the training and 1/3 for the test).
 Then the model is evaluated on the average of the chosen performance indicator
 over the three pairs.
 
-First, we're going to want to create a grid of parameters on which we want to
-evaluate our model:
+First, we're going to want to create a grid of parameters:
 
 {% highlight scala %}
 val paramGrid = new ParamGridBuilder()
@@ -449,7 +448,7 @@ val paramGrid = new ParamGridBuilder()
   .build()
 {% endhighlight %}
 
-The different parameters for `spark.ml`'s random forests can be found in the
+The different parameters for spark.ml's random forests can be found in the
 [scaladoc](http://spark.apache.org/docs/latest/api/scala/index.html#org.apache.spark.ml.classification.RandomForestClassifier).
 
 Next, we need to define an `Evaluator` which, as its name implies, will evaluate
@@ -466,7 +465,7 @@ val evaluator = new BinaryClassificationEvaluator()
   .setLabelCol("SurvivedIndexed")
 {% endhighlight %}
 
-However, another metric is available for binary classification: area under
+However, another metric is available for binary classification: the area under
 [the precision-recall curve](https://en.wikipedia.org/wiki/Precision_and_recall)
 which can be used with:
 
@@ -500,11 +499,11 @@ val crossValidatorModel = cv.fit(data)
 We can now make predictions on the `test.csv` file given by Kaggle:
 
 {% highlight scala %}
-val predictions = crossValidatorModel.transform(predictDFFiltered)
+val predictions = crossValidatorModel.transform(dfToPredict)
 {% endhighlight %}
 
 WARNING: You have to be careful when running cross validation, especially on
-bigger datasets, as it will train `k x p` model where `k` represents the number
+bigger datasets, as it will train `k x p` models where `k` represents the number
 of folds used for cross validation and `p` is the product of the number of
 values for each param in your grid.
 
@@ -521,7 +520,6 @@ val paramGrid = new ParamGridBuilder()
 
 We get `p = 3 x 3 x 2 = 18`, so our cross validation will train
 `k x p = 10 x 18 = 180` different models.
-
 <br><br>
 
 ### Submitting the results to Kaggle
