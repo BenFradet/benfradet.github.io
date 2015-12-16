@@ -288,9 +288,9 @@ This is the table I get with my particular permutation, as previously
 mentioned, your results may differ:
 <br>
 
-|                  | predicted 
-|      actual      |    Benign | &emsp;Malignant | &emsp;Row Total | 
-|------------------|----------:|----------------:|----------------:|
+|                  | predicted |                 |                 |
+| ---------------- | --------- | --------------- | --------------- |
+|      **actual**  |**Benign** |   **Malignant** |   **Row Total** | 
 |  **Benign**      |        94 |               0 |              94 | 
 |                  |     1.000 |           0.000 |           0.662 | 
 |                  |     0.940 |           0.000 |                 | 
