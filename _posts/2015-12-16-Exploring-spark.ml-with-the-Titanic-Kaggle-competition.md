@@ -523,3 +523,65 @@ We get `p = 3 x 3 x 2 = 18`, so our cross validation will train
 <br><br>
 
 ### Submitting the results to Kaggle
+<br>
+
+Now that we have our predictions, we just need to transform our data in order to
+fit the expected format by Kaggle and save it to a csv file:
+
+{% highlight scala %}
+predictions
+  .withColumn("Survived", col("predictedLabel"))
+  .select("PassengerId", "Survived")
+  .write
+  .format(csvFormat)
+  .option("header", "true")
+  .save(outputFilePath)
+{% endhighlight %}
+
+There is still one more step to be performed: the output file will unfortunately
+be partitioned according to the `part-[m|r]-[0-9]{5}` hadoop format where the
+number of files dependes on the number of threads/executors you used to run the
+job. I wrote a little script to combine part files locally so you can just
+run the script and get the output file ready to be submitted to Kaggle:
+
+{% highlight bash %}
+#!/bin/bash
+
+DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+OUTPUT="classified.csv"
+TMP_FILE="${OUTPUT}2"
+
+rm -rf ${OUTPUT}
+rm -rf ${TMP_FILE}
+
+cd ${DIR}
+mvn clean package
+spark-submit \
+  --class com.github.benfradet.Titanic \
+  --master local[2] \
+  target/titanic-1.0-SNAPSHOT.jar \
+  src/main/resources/train.csv src/main/resources/test.csv ${OUTPUT}
+
+touch ${TMP_FILE}
+for line in $(find ${OUTPUT} -name 'part-*'); do
+    if [ "${line}" == "${OUTPUT}/part-00000" ]; then
+        cat ${line} >> ${TMP_FILE}
+    else
+        tail -n +2 ${line} >> ${TMP_FILE}
+    fi
+done
+
+rm -rf ${OUTPUT}
+mv ${TMP_FILE} ${OUTPUT}
+{% endhighlight %}
+
+The script combines all `part-*` files into one csv with the header as
+`classified.csv` ready to be submitted to Kaggle.
+<br><br>
+
+### Conclusion
+
+I hope this was an interesting introduction to spark.ml and that I could convey
+the simplicity and expressiveness of the API.
+
+For information, I managed to score 0.80383 on the contest.
