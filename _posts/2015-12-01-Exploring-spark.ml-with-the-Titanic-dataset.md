@@ -266,4 +266,13 @@ What's very interesting about spark.ml compared to spark.mllib, aside from
 dealing with DataFrames instead of RDDs, is the fact that you can build and tune
 your own machine learning pipeline as we'll see in a bit.
 
-desc + link vers le ml programming guide
+There are two main concepts in `spark.ml` (extracted from the
+[guide](http://spark.apache.org/docs/latest/ml-guide.html#main-concepts)):
+
+  - `Transformers`, which are algorithms which transfrom a DataFrame into
+another. For example, a machine learning model is a `Transformer` which
+transforms DataFrames with features into DataFrames with predictions.
+  - `Estimators`, which are algorithms which can be fit on a DataFrame to
+produce a `Transformer`. For example, a learning algorithm is an `Estimator`
+which trains on a DataFrame to produce a machine learning model (which is a
+`Transformer`.
