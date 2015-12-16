@@ -1,10 +1,11 @@
 ---
 layout: post
-title: Exploring spark.ml with the Titanic dataset
+title: Exploring spark.ml with the Titanic Kaggle competition
 categories:
     - machine learning
     - tutorial
     - Spark
+    - Kaggle
 ---
 
 It's been a while since my last post, and in this post I'm going to talk about
@@ -22,9 +23,10 @@ project is subdivided in modules:
 - GraphX which provides an API to interact with graphs and graphs computation
 
 Today, I'll talk about MLlib which is, as previously mentioned, the Spark
-submodule dedicated to machine learning. This submodule is split
-into two: [spark.mllib](http://spark.apache.org/docs/latest/mllib-guide.html#mllib-types-algorithms-and-utilities)
-which is built on top of the old RDDs and [spark.ml](http://spark.apache.org/docs/latest/mllib-guide.html#sparkml-high-level-apis-for-ml-pipelines)
+submodule dedicated to machine learning. This submodule is split in two:
+[spark.mllib](http://spark.apache.org/docs/latest/mllib-guide.html#mllib-types-algorithms-and-utilities)
+which is built on top of the old RDDs and
+[spark.ml](http://spark.apache.org/docs/latest/mllib-guide.html#sparkml-high-level-apis-for-ml-pipelines)
 which is built on top of the DataFrame API. In this post, I'll talk
 exclusively about spark.ml which aims to ease the process of creating machine
 learning pipelines.
@@ -279,7 +281,7 @@ transforms DataFrames with features into DataFrames with predictions.
   - `Estimators`, which are algorithms which can be fit on a DataFrame to
 produce a `Transformer`. For example, a learning algorithm is an `Estimator`
 which trains on a DataFrame to produce a machine learning model (which is a
-`Transformer`.
+`Transformer`).
 
 A pipeline is an ordered combination of `Transformers` and `Estimators`.
 <br><br>
@@ -416,5 +418,110 @@ We first apply each `StringIndexer` for every one of our categorical feature and
 our label, we then assemble every feature into one column. Then, we train our
 random forest and we finally convert back the indexed labels predicted to the
 original ones.
+<br><br>
 
-TODO: TOC
+### Selecting the best model
+<br>
+
+In order to select the best model, you'll often find yourself performing a grid
+search over a set of parameters, for each combination of parameters do cross
+validation and keep the best model according to some performance indicator.
+
+This is a bit tedious and `spark.ml` aims to simplify that with an easy-to-use
+API.
+
+A quick reminder if you don't know what
+[cross validation](https://en.wikipedia.org/wiki/Cross-validation_(statistics))
+is: you chose a number `k` of folds, for example 3, your dataset will be split
+into three parts, from those 3 parts, 3 different pairs of training and test
+data will be generated (2/3 of the data for the training and 1/3 for the test).
+Then the model is evaluated on the average of the chosen performance indicator
+over the three pairs.
+
+First, we're going to want to create a grid of parameters on which we want to
+evaluate our model:
+
+{% highlight scala %}
+val paramGrid = new ParamGridBuilder()
+  .addGrid(randomForest.maxBins, Array(25, 28, 31))
+  .addGrid(randomForest.maxDepth, Array(4, 6, 8))
+  .addGrid(randomForest.impurity, Array("entropy", "gini"))
+  .build()
+{% endhighlight %}
+
+The different parameters for `spark.ml`'s random forests can be found in the
+[scaladoc](http://spark.apache.org/docs/latest/api/scala/index.html#org.apache.spark.ml.classification.RandomForestClassifier).
+
+Next, we need to define an `Evaluator` which, as its name implies, will evaluate
+our model according to some metric. There are three built-in evaluator: one for
+regression, one for binary classification and another one multiclass
+classification. In our case, we're only interested in the
+[BinaryClassificationEvaluator](http://spark.apache.org/docs/latest/api/scala/index.html#org.apache.spark.ml.evaluation.BinaryClassificationEvaluator).
+The default metric used for binary classification is the area under
+[the ROC curve](https://en.wikipedia.org/wiki/Receiver_operating_characteristic).
+A `BinaryClassificationEvaluator` can be created in the following way:
+
+{% highlight scala %}
+val evaluator = new BinaryClassificationEvaluator()
+  .setLabelCol("SurvivedIndexed")
+{% endhighlight %}
+
+However, another metric is available for binary classification: area under
+[the precision-recall curve](https://en.wikipedia.org/wiki/Precision_and_recall)
+which can be used with:
+
+{% highlight scala %}
+val evaluator = new BinaryClassificationEvaluator()
+  .setLabelCol("SurvivedIndexed")
+  .setMetricName("areaUnderPR")
+{% endhighlight %}
+
+We also need an `Estimator` to be trained, in our case, it will be our whole
+pipeline.
+
+Finally, after chosing `k=10`, the number of folds the data will be split into
+during cross validation, we can create a `CrossValidator` object like so:
+
+{% highlight scala %}
+val cv = new CrossValidator()
+  .setEstimator(pipeline)
+  .setEvaluator(evaluator)
+  .setEstimatorParamMaps(paramGrid)
+  .setNumFolds(10)
+{% endhighlight %}
+
+Since our `CrossValidator` is an `Estimator`, we can obtain the best model for
+our data by calling the `fit` method on it:
+
+{% highlight scala %}
+val crossValidatorModel = cv.fit(data)
+{% endhighlight %}
+
+We can now make predictions on the `test.csv` file given by Kaggle:
+
+{% highlight scala %}
+val predictions = crossValidatorModel.transform(predictDFFiltered)
+{% endhighlight %}
+
+WARNING: You have to be careful when running cross validation, especially on
+bigger datasets, as it will train `k x p` model where `k` represents the number
+of folds used for cross validation and `p` is the product of the number of
+values for each param in your grid.
+
+If we go back to our previous example with `k=10` and the following parameter
+grid:
+
+{% highlight scala %}
+val paramGrid = new ParamGridBuilder()
+  .addGrid(randomForest.maxBins, Array(25, 28, 31)) // 3 different values
+  .addGrid(randomForest.maxDepth, Array(4, 6, 8)) // 3 different values
+  .addGrid(randomForest.impurity, Array("entropy", "gini")) // 2 different values
+  .build()
+{% endhighlight %}
+
+We get `p = 3 x 3 x 2 = 18`, so our cross validation will train
+`k x p = 10 x 18 = 180` different models.
+
+<br><br>
+
+### Submitting the results to Kaggle
