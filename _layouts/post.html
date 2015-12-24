@@ -6,7 +6,7 @@ layout: default
         <h1><a href="/">{{site.title}}</a></h1>
     </div>
     
-    <div id = "post">
+    <div id="post">
         <h2>{{page.title}}</h2>
         <div class="meta">
             <span class="date">{{page.date | date: '%B %e, %Y'}}</span>
@@ -18,6 +18,10 @@ layout: default
             </span>
         </div>
         {{content}}
+    </div>
+
+    <div id="comments">
+        {% include disqus.html %}
     </div>
 
     <div id="footer">
