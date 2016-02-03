@@ -48,7 +48,7 @@ We'll be using the Titanic dataset taken from a
 if a passenger survived from a set of features such as the class the passenger
 was in, hers/his age or the fare the passenger paid to get on board.
 
-You can find the code for this post on [Github](https://github.com/BenFradet/kaggle).
+You can find the code for this post on [Github](https://github.com/BenFradet/spark-kaggle/tree/master/titanic).
 <br><br>
 
 ### Data exploration and data transformation
@@ -529,6 +529,7 @@ fit the expected format by Kaggle and save it to a csv file:
 predictions
   .withColumn("Survived", col("predictedLabel"))
   .select("PassengerId", "Survived")
+  .coalesce(1)
   .write
   .format(csvFormat)
   .option("header", "true")
@@ -536,10 +537,9 @@ predictions
 {% endhighlight %}
 
 There is still one more step to be performed: the output file will unfortunately
-be partitioned according to the `part-[m|r]-[0-9]{5}` hadoop format where the
-number of files dependes on the number of threads/executors you used to run the
-job. I wrote a little script to combine part files locally so you can just
-run the script and get the output file ready to be submitted to Kaggle:
+be in a directory in the `part-[0-9]{5}` hadoop format. As a result, I wrote a
+little script to launch the Spark job and rename the output file so it is ready
+to be submitted to Kaggle:
 
 {% highlight bash %}
 #!/bin/bash
@@ -559,21 +559,10 @@ spark-submit \
   target/titanic-1.0-SNAPSHOT.jar \
   src/main/resources/train.csv src/main/resources/test.csv ${OUTPUT}
 
-touch ${TMP_FILE}
-for line in $(find ${OUTPUT} -name 'part-*'); do
-    if [ "${line}" == "${OUTPUT}/part-00000" ]; then
-        cat ${line} >> ${TMP_FILE}
-    else
-        tail -n +2 ${line} >> ${TMP_FILE}
-    fi
-done
-
+mv ${OUTPUT}/part-00000 ${TMP_FILE}
 rm -rf ${OUTPUT}
 mv ${TMP_FILE} ${OUTPUT}
 {% endhighlight %}
-
-The script combines all `part-*` files into one csv with the header as
-`classified.csv` ready to be submitted to Kaggle.
 <br><br>
 
 ### Conclusion
