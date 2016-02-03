@@ -4,7 +4,7 @@ email: benjamin.fradet@gmail.com
 title: Ben Fradet's blog
 
 permalink: /blog/:year/:month/:day/:title
-highlighter: pygments
+highlighter: rouge 
 timezone: FR
 encoding: utf-8
 markdown: redcarpet
