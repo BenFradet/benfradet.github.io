@@ -35,12 +35,13 @@ If you want to follow this tutorial you will have to download spark which can
 be done [here](http://spark.apache.org/downloads.html). Additionnally, you will
 need a few dependencies in order to build your project:
 
-| groupId           | artifactId        | version  | scope     |
-| ----------------- |------------------ |----------|---------- |
-| org.apache.spark  | spark-core_2.10   | 1.5.2    | provided  |
-| org.apache.spark  | spark-sql_2.10    | 1.5.2    | compile   |
-| org.apache.spark  | spark-mllib_2.10  | 1.5.2    | compile   |
-| com.databricks    | spark-csv_2.10    | 1.2.0    | compile   |
+| groupId | artifactId | version | scope |
+|----+----|
+| org.apache.spark | spark-core_2.10 | 1.5.2 | provided |
+| org.apache.spark | spark-sql_2.10 | 1.5.2 | compile |
+| org.apache.spark | spark-mllib_2.10 | 1.5.2 | compile |
+| com.databricks | spark-csv_2.10 | 1.2.0 | compile |
+
 <br>
 
 We'll be using the Titanic dataset taken from a
