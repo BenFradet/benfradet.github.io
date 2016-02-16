@@ -259,7 +259,32 @@ ALS als = new ALS()
 
 #### Python example
 
-PYTHON EXAMPLE
+{% highlight python %}
+from pyspark.ml.evaluation import RegressionEvaluator
+from pyspark.ml.recommendation import ALS
+from pyspark.sql import Row
+
+lines = sc.textFile("data/sample_movielens_ratings.txt")
+parts = lines.map(lambda l: l.split("::"))
+ratingsRDD = parts.map(lambda p: Row(userId=int(p[0]), movieId=int(p[1]),
+                                     rating=float(p[2]), timestamp=long(p[3])))
+ratings = sqlContext.createDataFrame(ratingsRDD)
+(training, test) = ratings.randomSplit([0.8, 0.2])
+
+# Build the recommendation model using ALS on the training data
+als = ALS(maxIter=5, regParam=0.01, userCol="userId", itemCol="movieId", ratingCol="rating")
+model = als.fit(training)
+
+# Evaluate the model by computing the RMSE on the test data
+rawPredictions = model.transform(test)
+predictions = rawPredictions\
+    .withColumn("rating", rawPredictions.rating.cast("double"))\
+    .withColumn("prediction", rawPredictions.prediction.cast("double"))
+evaluator =\
+    RegressionEvaluator(metricName="rmse", labelCol="rating", predictionCol="prediction")
+rmse = evaluator.evaluate(predictions)
+print("Root-mean-square error = " + str(rmse))
+{% endhighlight %}
 
 You can have a look at the
 [ALS Python docs](https://spark.apache.org/docs/latest/api/python/pyspark.ml.html#pyspark.ml.recommendation.ALS)
@@ -278,6 +303,7 @@ als = ALS(maxIter=5, regParam=0.01, implicitPrefs=True,
 
 ### Conclusion
 
-- checks the links
-- link to the gh repo
-- readme sur sparkml-als
+You can find the full examples and the scripts to run them on my repo
+[sparkml-als](https://github.com/BenFradet/sparkml-als).
+
+Hoping this was informative and made you want to try out ALS in spark.ml.
