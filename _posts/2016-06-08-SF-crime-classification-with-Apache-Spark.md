@@ -397,16 +397,11 @@ First up, we'll need functions which turns WKTs into ESRI geometries
 (i.e. `Point` and `Polygon`):
 
 {% highlight scala %}
-def createPolygonFromWKT(wkt: String): Polygon = {
-  val geom = OperatorImportFromWkt.local()
-    .execute(WktImportFlags.wktImportDefaults, Geometry.Type.Polygon, wkt, null)
-  geom.asInstanceOf[Polygon]
-}
-
-def createPointFromWKT(wkt: String): Point = {
-  val geom = OperatorImportFromWkt.local()
-    .execute(WktImportFlags.wktImportDefaults, Geometry.Type.Point, wkt, null)
-  geom.asInstanceOf[Point]
+def createGeometryFromWKT[T <: Geometry](wkt: String): T = {
+  val wktImportFlags = WktImportFlags.wktImportDefaults
+  val geometryType = Geometry.Type.Unknown
+  val g = OperatorImportFromWkt.local().execute(wktImportFlags, geometryType, wkt, null)
+  g.asInstanceOf[T]
 }
 {% endhighlight %}
 
@@ -426,7 +421,7 @@ which will tell us in which neighborhood an incident occurred:
 {% highlight scala %}
 def enrichNeighborhoods(nbhds: Seq[Neighborhood])(df: DataFrame): DataFrame = {
   def nbhdUDF = udf { (lat: Double, lng: Double) =>
-    val point = createPointFromWKT(s"POINT($lat $lng)")
+    val point = createGeometryFromWKT[Point](s"POINT($lat $lng)")
     nbhds
       .filter(nbhd => contains(nbhd.polygon, point))
       .map(_.name)
