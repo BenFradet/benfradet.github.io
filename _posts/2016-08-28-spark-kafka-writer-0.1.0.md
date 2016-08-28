@@ -112,7 +112,7 @@ dStream.writeToKafka(
 )
 {% endhighlight %}
 
-As you can notice, the API is exactly the same!
+As you can see, the API is exactly the same!
 
 ### Future work
 
