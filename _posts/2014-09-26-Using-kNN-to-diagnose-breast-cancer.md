@@ -290,19 +290,19 @@ mentioned, your results may differ:
 
 |                  | predicted |                 |                 |
 | ---------------- | --------- | --------------- | --------------- |
-|      **actual**  |**Benign** |   **Malignant** |   **Row Total** | 
-|  **Benign**      |        94 |               0 |              94 | 
-|                  |     1.000 |           0.000 |           0.662 | 
-|                  |     0.940 |           0.000 |                 | 
-|                  |     0.662 |           0.000 |                 | 
+|      **actual**  |**Benign** |   **Malignant** |   **Row Total** |
+|  **Benign**      |        94 |               0 |              94 |
+|                  |     1.000 |           0.000 |           0.662 |
+|                  |     0.940 |           0.000 |                 |
+|                  |     0.662 |           0.000 |                 |
 |                  |           |                 |                 |
-| **Malignant**    |         6 |              42 |              48 | 
-|                  |     0.125 |           0.875 |           0.338 | 
-|                  |     0.060 |           1.000 |                 | 
-|                  |     0.042 |           0.296 |                 | 
+| **Malignant**    |         6 |              42 |              48 |
+|                  |     0.125 |           0.875 |           0.338 |
+|                  |     0.060 |           1.000 |                 |
+|                  |     0.042 |           0.296 |                 |
 |                  |           |                 |                 |
-|**Column Total**  |       100 |              42 |             142 | 
-|                  |     0.704 |           0.296 |                 | 
+|**Column Total**  |       100 |              42 |             142 |
+|                  |     0.704 |           0.296 |                 |
 
 <br>
 We can see that we predicted 6 examples as benign although they were malignant
