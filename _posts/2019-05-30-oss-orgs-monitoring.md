@@ -15,6 +15,12 @@ Let's go through each dashboard!
 
 ### Dashboards
 
+The hero repository dashboard display the evolution of the number of stars along a time
+axis for a particular repository that you consider to be the "main" repository for your
+organization.
+
+![](/images/stars.png)
+
 ### Stack
 
 ### Running
