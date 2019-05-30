@@ -17,9 +17,13 @@ Let's go through each dashboard!
 
 ### Stack
 
+### Running
+
 ### Conclusion
 
-Future
+Of course, the set of dashboards is, at the moment, quite limited. Future dashboards
+could include pull requests response and merge times and statistics around issues which
+haven't been explored yet.
 
 Dashing was originally meant to be a toy project to try out
 [Scala.js](https://www.scala-js.org/) because I had never done any frontend development
