@@ -32,6 +32,20 @@ excluded as we considered it to be the hero repository.
 
 ![](/images/topn-repos.png)
 
+The other two dashboards focus on actual contributions by measure the number of pull
+requests opened by people outside the organization across multiple organizations.
+
+The first one does so quartlery. Here, we explore the pull requests opened by people
+outside the Snowplow organizations: [snowplow](https://github.com/snowplow/),
+[snowplow-incubator](https://github.com/snowplow-incubator/) and
+[snowplow-referer-parser](https://github.com/snowplow-referer-parser/).
+
+![](/images/prs-quarterly.png)
+
+The same data is also available monthly.
+
+![](/images/prs-monthly.png)
+
 ### Stack
 
 ### Running
