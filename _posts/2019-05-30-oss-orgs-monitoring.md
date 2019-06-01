@@ -19,7 +19,18 @@ The hero repository dashboard display the evolution of the number of stars along
 axis for a particular repository that you consider to be the "main" repository for your
 organization.
 
-![](/images/stars.png)
+Here, we can see the evolution of the popularity of [`hashicorp/terraform`](https://github.com/hashicorp/terraform):
+
+![](/images/hero-repo.png)
+
+The next dashboard show the evolution of the number of stars for the following `n` repositories in
+terms of popularity and aggregates the other repositories.
+
+Here, we can see the evolution of the popularity of the 5 most popular repositories in the
+`hashicorp` organization: `consul`, `nomad`, `vault`, `vagrant` and `packer`. `terraform` is
+excluded as we considered it to be the hero repository.
+
+![](/images/topn-repos.png)
 
 ### Stack
 
