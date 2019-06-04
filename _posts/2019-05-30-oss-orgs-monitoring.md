@@ -19,18 +19,17 @@ The hero repository dashboard display the evolution of the number of stars along
 axis for a particular repository that you consider to be the "main" repository for your
 organization.
 
-Here, we can see the evolution of the popularity of [`hashicorp/terraform`](https://github.com/hashicorp/terraform):
+Here, we can see the evolution of the popularity of [`snowplow/snowplow`](https://github.com/snowplow/snowplow):
 
-![](/images/hero-repo.png)
+![](/images/stars-hero.png)
 
 The next dashboard show the evolution of the number of stars for the following `n` repositories in
-terms of popularity and aggregates the other repositories.
+terms of popularity.
 
 Here, we can see the evolution of the popularity of the 5 most popular repositories in the
-`hashicorp` organization: `consul`, `nomad`, `vault`, `vagrant` and `packer`. `terraform` is
-excluded as we considered it to be the hero repository.
+`snowplow` organization. `snowplow` is excluded as we considered it to be the hero repository.
 
-![](/images/topn-repos.png)
+![](/images/stars-top-n.png)
 
 The other two dashboards focus on actual contributions by measuring the number of pull
 requests opened by people outside the organization across multiple organizations.
@@ -46,7 +45,13 @@ The same data is also available monthly.
 
 ![](/images/prs-monthly.png)
 
-### Stack
+### Software stack
+
+The backend is built using [http4s](https://http4s.org/) with [circe](http://circe.github.io/circe/)
+for JSON manipulation.
+
+On the frontend, the app uses [scalajs-react](https://github.com/japgolly/scalajs-react) and
+[chartjs](https://www.chartjs.org/) for the dashboards themselves.
 
 ### Running
 
@@ -61,5 +66,5 @@ Dashing was originally meant to be a toy project to try out
 before (as the project shows), there is a lot that can be improved in that regard.
 
 As a result, I would gladly welcome any contributions on frontend-related improvements (of
-course any improvement will still be definitely welcome!).
+course any improvement is definitely welcome!).
 
