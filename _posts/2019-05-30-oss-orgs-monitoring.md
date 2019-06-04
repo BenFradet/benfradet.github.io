@@ -55,6 +55,53 @@ On the frontend, the app uses [scalajs-react](https://github.com/japgolly/scalaj
 
 ### Running
 
+To run the project yourself you'll need to fill a configuration file:
+
+{% highlight hocon %}
+# Github access token
+ghToken = token
+
+# Configuration for the dashboards about pull requests
+prDashboards = {
+  # Github organizations from which to retrieve the data regarding pull requests
+  orgs = [ snowplow, snowplow-incubator, snowplow-referer-parser ]
+  # List of github handles to ignore, for example if they're wrongly not part of the org
+  peopleToIgnore = [ "jorgemgoncalves", "three", "asoltysik" ]
+  # How far in the past the GitHub pull request data lookups should go
+  lookback = 730 days
+}
+
+# Configuration for the dashboards about stars
+starDashboards = {
+  # Github organization from which to retrieve the data regarding stars
+  org = snowplow
+  # Name of the most popular repository for the hero repo dashboard
+  heroRepo = snowplow
+  # Number of most popular repositories to analyze (hero repo excluded)
+  topNRepos = 5
+}
+
+# Duration for which data from GitHub is cached
+cacheDuration = 12 hours
+
+# Host the server should bind to
+host = localhost
+
+# Port the server should bind to
+port = 8080
+{% endhighlight %}
+
+Once the configuration is filled up you can start the app with:
+
+{% highlight bash %}
+$ sbt
+> project server
+> ~reStart
+{% endhighlight %}
+
+At the moment, you can only package the application using [sbt-assembly](https://github.com/sbt/sbt-assembly).
+I'll be working on a proper docker image soon.
+
 ### Conclusion
 
 Of course, the set of dashboards is, at the moment, quite limited. Future dashboards
