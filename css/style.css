@@ -54,6 +54,11 @@ h2 {
     margin-left: calc((100% - 700px)/2);
 }
 
+img {
+    width: 100%;
+    max-width: 700px;
+}
+
 .meta {
     color: #888;
     margin-bottom: 1em;
