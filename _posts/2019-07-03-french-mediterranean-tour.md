@@ -55,7 +55,18 @@ later.
 
 ### Bags
 
-All in all, my partner was carrying approximately 4kgs while I had around 15kgs of gear.
+- picture
+
+My partner was using a Zéfal Z-Adventure F10 handle bar bag to carry the sleeping mats and bags and
+our underwear.
+
+I used a pair of Vaude Aqua rear panniers mounted on a Tubus Disco to carry well, all the rest!
+
+We also carry a pair of Zéfal Magnum 1L bottles each for our drinks.
+
+Finally, we each had a Vaude Carbo top tube bag to carry our smartphone and snacks.
+
+All in all, my partner was carrying approximately 5kgs while I had around 18kgs of gear.
 
 ### Route
 
