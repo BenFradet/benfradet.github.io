@@ -14,6 +14,14 @@ took.
 
 - picture
 
+My partner is running a Giant Escape 2, it's her old commuter bike reused as a tourer. We're
+currently looking for a replacement and more specifically a Trek Checkpoint ALR 5 which
+will be way lighter (around 4kgs less) and better equipped, in particular with a Shimano
+105 groupset.
+
+I'm using a Ribble CGR SL with an Ultegra groupset geared as 36-52/11-34 which I found
+suprisingly okay touring with our quite light setup, as we shall see.
+
 ### Gear
 
 - picture
