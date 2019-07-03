@@ -5,7 +5,11 @@ categories:
   - cycling
 ---
 
-Last week, my partner and I went on a bicycle tour along the French Mediterranean coast.
+Last week, my partner and I went on a bicycle tour along the French Mediterranean coast. We started
+from the West of Marseille where we live to join friends near Fréjus which is further along the
+coast to the East.
+
+- picture
 
 I'll first go over our bikes and the gear we packed and then I'll dig into the route we
 took.
