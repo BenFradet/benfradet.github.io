@@ -7,7 +7,7 @@ categories:
 
 Last week, my partner and I went on a bicycle tour along the French Mediterranean coast. We started
 from the West of Marseille where we live to join friends near Fréjus which is further along the
-coast to the East.
+French Mediterranean coast to the East.
 
 - picture
 
@@ -74,13 +74,49 @@ All in all, my partner was carrying approximately 5kgs while I had around 18kgs 
 
 ### Route
 
+We usually tried to ride during the early hours of the day, with the ideal timeframe being between
+5 and 10AM.
+
+#### Day 1, Martigues -> La Ciotat
+
+First day of our journey, taking us through Marseille and to La Ciotat, a beautiful city in the
+[calanques](https://en.wikipedia.org/wiki/Calanque) which invented
+[pétanque](https://en.wikipedia.org/wiki/P%C3%A9tanque)!
+
+We left a bit later than anticipated at around 6:20 and rode through the first leg of our journey to
+the eastern part of Marseille where we stopped for a second breakfast. This first part was fairly
+easy as it's mostly flat and we know the road quite well.
+
+The second part is a lot more difficult than the first as you follow the road around
+[Mont Puget](https://en.wikipedia.org/wiki/Mont_Puget) which is quite hilly.
+
+- picture
+
+Unfortunately, when we started going down towards Cassis my partner got a flat tire. It turned out
+she was carrying a piece of glass for some time which tore through her tire and ultimately her tube.
+We stopped to quickly change tubes and headed towards Cassis to buy a new tire.
+
+That wasn't the last of our trouble as the bike shop in Cassis was closed. After this small détour,
+we decided to head directly to La Ciotat and find a new bike shop.
+
+Luck took a turn for the better at this point, we didn't hit another flat despite the tear
+in the tire for the 12 kms separating us from La Ciotat and we stumbled upon the excellent
+[Cycles Lleba bikeshop](https://goo.gl/maps/g94qBSvByfVYCY8z9). The owner offered us an excellent
+bargain: two Vittoria Zaffiro tires and two Conti Tour tubes for 40 euros!
+
+After all these adventures, we reached our campsite at 11AM, had lunch, took a nap and enjoyed the
+sea!
+
+Here's the bikemap for that first day:
+
 <iframe src="https://www.bikemap.net/en/r/5062947/widget/?width=640&amp;height=480&amp;extended=1&amp;unit=metric" width="640" height="628" border="0" frameborder="0" marginheight="0" marginwidth="0" scrolling="no"> </iframe> <div style="margin: -4px 0 0 5px; height: 16px; color: #889EAC; font-family: sans-serif; font-size: 11px;"> <a href="https://www.bikemap.net/en/r/5062947/" style="color:#1381fa; text-decoration:underline;" target="_blank" rel="noopener">Cycle Route 5062947</a> - via <a href="https://www.bikemap.net" style="color:#1381fa; text-decoration:underline;" target="_blank">Bikemap.net</a> </div>
 
 - day6
 
 Unfortunately, we weren't able to do the scenery any justice because the roads were so small you
 couldn't really stop to take pictures wihtout putting yourself in danger. There weren't any
-shoulders when the landscapes were the most beautiful which is a shame!
+shoulders when the landscapes were the most beautiful which is a shame! But believe me, the route
+was truly amazing.
 
 ### Conclusion
 
