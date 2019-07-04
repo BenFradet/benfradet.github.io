@@ -136,6 +136,18 @@ Here's the bikemap for day 2:
 
 - bikemap
 
+#### Day 3, Hyères -> Fréjus
+
+Given that the heatwave mentioned earlier was starting and we had quite a few kilometers to do, we
+decided to start earlier and left by 5AM.
+
+Wrong road due to the bicycle path.
+
+Going uphill, the road is very narrow and very much in use by all sorts of lorries which can block
+both ways given how tight the laces are. Not very safe for bicycles.
+
+You truly are in a valley between two small mountains.
+
 #### day6
 
 Unfortunately, we weren't able to do the scenery any justice because the roads were so small you
