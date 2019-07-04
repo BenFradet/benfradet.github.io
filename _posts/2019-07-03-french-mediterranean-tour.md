@@ -84,8 +84,8 @@ First day of our journey, taking us through Marseille and to La Ciotat, a beauti
 [pétanque](https://en.wikipedia.org/wiki/P%C3%A9tanque)!
 
 We left a bit later than anticipated at around 6:20 and rode through the first leg of our journey to
-the eastern part of Marseille where we stopped for a second breakfast. This first part was fairly
-easy as it's mostly flat and we know the road quite well.
+the eastern part of Marseille where we stopped for a second breakfast in a bakery. This first part
+was fairly easy as it's mostly flat and we know the road quite well.
 
 The second part is a lot more difficult than the first as you follow the road around
 [Mont Puget](https://en.wikipedia.org/wiki/Mont_Puget) which is quite hilly.
@@ -104,14 +104,39 @@ in the tire for the 12 kms separating us from La Ciotat and we stumbled upon the
 [Cycles Lleba bikeshop](https://goo.gl/maps/g94qBSvByfVYCY8z9). The owner offered us an excellent
 bargain: two Vittoria Zaffiro tires and two Conti Tour tubes for 40 euros!
 
-After all these adventures, we reached our campsite at 11AM, had lunch, took a nap and enjoyed the
-sea!
+After all these adventures, we reached our campsite at 11AM, had lunch, took a nap, swapped some
+tires and enjoyed the sea!
 
 Here's the bikemap for that first day:
 
 <iframe src="https://www.bikemap.net/en/r/5062947/widget/?width=640&amp;height=480&amp;extended=1&amp;unit=metric" width="640" height="628" border="0" frameborder="0" marginheight="0" marginwidth="0" scrolling="no"> </iframe> <div style="margin: -4px 0 0 5px; height: 16px; color: #889EAC; font-family: sans-serif; font-size: 11px;"> <a href="https://www.bikemap.net/en/r/5062947/" style="color:#1381fa; text-decoration:underline;" target="_blank" rel="noopener">Cycle Route 5062947</a> - via <a href="https://www.bikemap.net" style="color:#1381fa; text-decoration:underline;" target="_blank">Bikemap.net</a> </div>
 
-- day6
+#### Day 2, La Ciotat -> Hyères
+
+The second day was quieter, less distance travelled and less elevation gain, taking us to family
+members in Hyères continuing our journey eastward.
+
+Compared to the previous day, it was fairly uneventful. We woke up at around 5AM, packed everything,
+had breakfast, and we were on our way at 6.
+
+The first leg to Toulon had some beatiful scenery as you go through the vineyards after
+Saint-Cyr-sur-Mer and along the bay of Bandol as the sun comes up.
+
+We stopped in Toulon to get a second breakfast at a bar and went back on our way. From Toulon to
+Hyères we used the dedicated bicycle path which goes through most of the Var department (which is
+known as "parcours cyclable du littoral" in French).
+
+We reached our destination at around 9 and were able to enjoy a homemade couscous for lunch and a
+nice view of the hippodrome (we obviously also took the obligatory nap on the beach in the
+afternoon).
+
+- picture
+
+Here's the bikemap for day 2:
+
+- bikemap
+
+#### day6
 
 Unfortunately, we weren't able to do the scenery any justice because the roads were so small you
 couldn't really stop to take pictures wihtout putting yourself in danger. There weren't any
