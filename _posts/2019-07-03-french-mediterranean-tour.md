@@ -139,14 +139,33 @@ Here's the bikemap for day 2:
 #### Day 3, Hyères -> Fréjus
 
 Given that the heatwave mentioned earlier was starting and we had quite a few kilometers to do, we
-decided to start earlier and left by 5AM.
+decided to start earlier and left by 5AM. The goal for the day was to meet our friends near Fréjus.
 
-Wrong road due to the bicycle path.
+We went back to the previous day's bicycle path and headed towards Bormes-les-Mimosas. The road
+started to go uphill towards the Col de Gratteloup. However, this road is very narrow and very much
+in use by all sorts of lorries which can block both ways given how tight the laces are. As a result,
+I wouldn't recommend it when cycling. We'll see the alternative later in this post.
 
-Going uphill, the road is very narrow and very much in use by all sorts of lorries which can block
-both ways given how tight the laces are. Not very safe for bicycles.
+The road gets better going downhill as it is way larger and more beautiful. You find yourself
+in a charming valley between two small mountains. Bonus, it becomes completely flat quite quickly
+so you can really get the kilometers in.
 
-You truly are in a valley between two small mountains.
+We stopped for a quick second breakfast at La Môle headed back towards Fréjus. Once you reach
+Port Grimaud, the road follows the Mediterranean until Fréjus.
+
+We reached the campsite near Fréjus at around 10AM and it was already 31°C under shelter, I'll let
+you imagine what it was like under the sun. We stopped for a couple of days for some well-deserved
+rest enjoying the beaches under the shadows of palm trees.
+
+The bikemap for day 3:
+
+- bikemap
+
+During those two days of rest, we visited a few things and most notably the ruins of
+[the Malpasset dam](https://en.wikipedia.org/wiki/Malpasset_Dam), one of the worst civil disaster
+in France during the twentieth century. It was really humbling stuff.
+
+- picture
 
 #### day6
 
