@@ -34,7 +34,7 @@ Let's go through each section in turn:
 
 1. Tent: we're using an MSR Carbon Reflex 2 with a footprint which weighs around 1kg altogether
 2. Sleeping gear: we're using Sea to Summit Spark SP1 sleeping bags which weigh 340gr each and Sea
-to Summit Ultralight Air sleeping mats which weight 355gr each
+to Summit Ultralight Air sleeping mats which weigh 355gr each
 3. Our reperation kit: with a couple of spare inner tubes and a tube repair kit, some eletrical
 tape, a Crankbrothers M19 multi-tool, a MAM knife (which is truly excellent) and a hand pump.
 Finally, we also had to pack a U-lock (if anyone has suggestions for a good lighter lock, I'm all
@@ -42,7 +42,7 @@ ears!).
 4. Toiletries
 5. First aid kit
 6. Electronics: we have an X-Moove Solargo 15000mAh battery which is a cool solar battery (we
-haven't put it through many cycles yet so I don't know what it's worth in the long run yet), an
+haven't put it through many cycles so I don't know what it's worth in the long run yet), an
 e-reader and some cables. We also brought our phones which aren't pictured.
 7. Clothes
 8. Rain coats
@@ -66,11 +66,11 @@ our underwear.
 
 I used a pair of Vaude Aqua rear panniers mounted on a Tubus Disco to carry well, all the rest!
 
-We also carry a pair of Zéfal Magnum 1L bottles each for our drinks.
+We also carried a pair of Zéfal Magnum 1L bottles each for our drinks.
 
 Finally, we each had a Vaude Carbo top tube bag to carry our smartphone and snacks.
 
-All in all, my partner was carrying approximately 5kgs while I had around 18kgs of gear.
+All in all, my partner was carrying approximately 7kgs while I had around 17kgs of gear.
 
 ### Route
 
@@ -83,9 +83,9 @@ First day of our journey, taking us through Marseille and to La Ciotat, a beauti
 [calanques](https://en.wikipedia.org/wiki/Calanque) which invented
 [pétanque](https://en.wikipedia.org/wiki/P%C3%A9tanque)!
 
-We left a bit later than anticipated at around 6:20 and rode through the first leg of our journey to
-the eastern part of Marseille where we stopped for a second breakfast in a bakery. This first part
-was fairly easy as it's mostly flat and we know the road quite well.
+We left a bit later than anticipated at around 6:20AM and rode through the first leg of our journey
+to the eastern part of Marseille where we stopped for a second breakfast in a bakery. This first
+part was fairly easy as it's mostly flat and we know the road quite well.
 
 The second part is a lot more difficult than the first as you follow the road around
 [Mont Puget](https://en.wikipedia.org/wiki/Mont_Puget) which is quite hilly.
@@ -102,7 +102,7 @@ we decided to head directly to La Ciotat and find a new bike shop.
 Luck took a turn for the better at this point, we didn't hit another flat despite the tear
 in the tire for the 12 kms separating us from La Ciotat and we stumbled upon the excellent
 [Cycles Lleba bikeshop](https://goo.gl/maps/g94qBSvByfVYCY8z9). The owner offered us an excellent
-bargain: two Vittoria Zaffiro tires and two Conti Tour tubes for 40 euros!
+bargain: two Vittoria Zaffiro Pro tires and two Conti Tour tubes for 40 euros!
 
 After all these adventures, we reached our campsite at 11AM, had lunch, took a nap, swapped some
 tires and enjoyed the sea!
@@ -138,7 +138,7 @@ Here's the bikemap for day 2:
 
 #### Day 3, Hyères -> Fréjus
 
-Given that the heatwave mentioned earlier was starting and we had quite a few kilometers to do, we
+Given that the heat wave mentioned earlier was starting and we had quite a few kilometers to do, we
 decided to start earlier and left by 5AM. The goal for the day was to meet our friends near Fréjus.
 
 We went back to the previous day's bicycle path and headed towards Bormes-les-Mimosas. The road
@@ -150,8 +150,8 @@ The road gets better going downhill as it is way larger and more beautiful. You 
 in a charming valley between two small mountains. Bonus, it becomes completely flat quite quickly
 so you can really get the kilometers in.
 
-We stopped for a quick second breakfast at La Môle headed back towards Fréjus. Once you reach
-Port Grimaud, the road follows the Mediterranean until Fréjus.
+We stopped for a quick second breakfast at La Môle and headed back towards Fréjus. Once you reach
+Port Grimaud, the road follows the Mediterranean sea until Fréjus.
 
 We reached the campsite near Fréjus at around 10AM and it was already 31°C under shelter, I'll let
 you imagine what it was like under the sun. We stopped for a couple of days for some well-deserved
@@ -167,16 +167,53 @@ in France during the twentieth century. It was really humbling stuff.
 
 - picture
 
-#### day6
+#### Day 6, Fréjus -> Hyères
 
-Unfortunately, we weren't able to do the scenery any justice because the roads were so small you
-couldn't really stop to take pictures wihtout putting yourself in danger. There weren't any
-shoulders when the landscapes were the most beautiful which is a shame! But believe me, the route
-was truly amazing.
+For the way back we didn't want to take the same route because:
+
+- we might as well enjoy another part of the area
+- as we said above, the road wasn't great going uphill so downhill would be even worse
+
+This road diverges from the former one at Port Grimaud and takes us through the beautiful villages
+of Ramatuelle, La Croix Valmer, Cavalaire-sur-Mer, Rayol-Canadel-sur-Mer and finally joins back the
+previous road at Bormes-les-Mimosas.
+
+The landscapes were thoroughly breathtaking. Unfortunately, we weren't able to do the scenery any
+justice through our pictures because the roads were so small you couldn't really stop to take
+pictures wihtout putting yourself in danger.
+
+- picture
+
+Unfortunately, this itinerary was quite longer than the other one and we were litterally in the
+middle of the heat wave with 33°C under shelter at 10AM so we didn't really enjoy it as much as we
+could have.
+
+We arrived at around 11:30AM after 6 hours of riding:
+
+- bikemap
+
+#### Day 7, Hyères -> Martigues
+
+After that long and hot day we were really drained and consequently decided to get a train back
+home.
+
+- picture
+
+Note, that it's free to take your bike with you on regional trains in France!
 
 ### Conclusion
 
-This your was a preparation for our tour of Corsica which we'll do in September so stay
+This was our first bike tour and was quite the learning experience, a few takeaways for our next
+tour:
+
+- give ourselves a day or two of slack, you never know when you might want to take an extra day off
+the saddle
+- always have a back up plan, for us it was taking the train
+- try to plan around heat waves (hehe)
+
+All in all, we rode around 350km for 2.8km elevation gain!
+
+This was a preparation for our tour of Corsica which we'll do in September so stay
 tuned for a new touring post!
 
 If you have questions, feel free to ask them below!
