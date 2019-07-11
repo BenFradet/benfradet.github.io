@@ -9,14 +9,14 @@ Last week, my partner and I went on a bicycle tour along the French Mediterranea
 from the West of Marseille where we live to join friends near Fréjus which is further along the
 French Mediterranean coast to the East.
 
-- picture
+{% include image.html url="/images/2019/07/camping.jpg" description="Our camping setup" %}
 
 I'll first go over our bikes and the gear we packed and then I'll dig into the route we
 took.
 
 ### Bikes
 
-- picture
+{% include image.html url="/images/2019/07/bikes.jpg" description="Our bikes" %}
 
 My partner is running a Giant Escape 2, it's her old commuter bike reused as a tourer. We're
 currently looking for a replacement and more specifically a Trek Checkpoint ALR 5 which
@@ -28,7 +28,7 @@ suprisingly okay touring with our quite light setup, as we shall see.
 
 ### Gear
 
-- picture
+{% include image.html url="/images/2019/07/gear.jpg" description="Our gear" %}
 
 Let's go through each section in turn:
 
@@ -88,7 +88,7 @@ part was fairly easy as it's mostly flat and we know the road quite well.
 The second part is a lot more difficult than the first as you follow the road around
 [Mont Puget](https://en.wikipedia.org/wiki/Mont_Puget) which is quite hilly.
 
-- picture
+{% include image.html url="/images/2019/07/marseille-cassis.jpg" description="A view from the top of the Marseille-Cassis road" %}
 
 Unfortunately, when we started going down towards Cassis my partner got a flat tire. It turned out
 she was carrying a piece of glass for some time which tore through her tire and ultimately her tube.
@@ -124,11 +124,8 @@ We stopped in Toulon to get a second breakfast at a bar and went back on our way
 Hyères we used the dedicated bicycle path which goes through most of the Var department (which is
 known as "parcours cyclable du littoral" in French).
 
-We reached our destination at around 9 and were able to enjoy a homemade couscous for lunch and a
-nice view of the hippodrome (we obviously also took the obligatory nap on the beach in the
-afternoon).
-
-- picture
+We reached our destination at around 9 and were able to enjoy a homemade couscous for lunch 
+and we obviously also took the obligatory nap on the beach in the afternoon.
 
 Here's the bikemap for day 2:
 
@@ -163,7 +160,7 @@ During those two days of rest, we visited a few things and most notably the ruin
 [the Malpasset dam](https://en.wikipedia.org/wiki/Malpasset_Dam), one of the worst civil disaster
 in France during the twentieth century. It was really humbling stuff.
 
-- picture
+{% include image.html url="/images/2019/07/malpasset.jpg" description="Part of the ruins of the Malpasset dam" %}
 
 #### Day 6, Fréjus -> Hyères
 
@@ -180,7 +177,7 @@ The landscapes were thoroughly breathtaking. Unfortunately, we weren't able to d
 justice through our pictures because the roads were so small you couldn't really stop to take
 pictures wihtout putting yourself in danger.
 
-- picture
+{% include image.html url="/images/2019/07/collebasse.jpg" description="Collebasse pass near Ramatuelle" %}
 
 Unfortunately, this itinerary was quite longer than the other one and we were litterally in the
 middle of the heat wave with 33°C under shelter at 10AM so we didn't really enjoy it as much as we
@@ -193,11 +190,7 @@ We arrived at around 11:30AM after 6 hours of riding:
 #### Day 7, Hyères -> Martigues
 
 After that long and hot day we were really drained and consequently decided to get a train back
-home.
-
-- picture
-
-Note, that it's free to take your bike with you on regional trains in France!
+home. Note, that it's free to take your bike with you on regional trains in France!
 
 ### Conclusion
 
