@@ -10,7 +10,7 @@ from the West of Marseille where we live to join friends near Fréjus which is f
 French Mediterranean coast to the East.
 
 {% include image.html url="/images/2019/07/camping.jpg" description="Our camping setup" %}
-<br/>
+<br/><br/>
 
 I'll first go over our bikes and the gear we packed and then I'll dig into the route we
 took.
@@ -18,7 +18,7 @@ took.
 ### Bikes
 
 {% include image.html url="/images/2019/07/bikes.jpg" description="Our bikes" %}
-<br/>
+<br/><br/>
 
 My partner is running a Giant Escape 2, it's her old commuter bike reused as a tourer. We're
 currently looking for a replacement and more specifically a Trek Checkpoint ALR 5 which
@@ -31,7 +31,7 @@ suprisingly okay touring with our quite light setup, as we shall see.
 ### Gear
 
 {% include image.html url="/images/2019/07/gear.jpg" description="Our gear" %}
-<br/>
+<br/><br/>
 
 Let's go through each section in turn:
 
@@ -92,7 +92,7 @@ The second part is a lot more difficult than the first as you follow the road ar
 [Mont Puget](https://en.wikipedia.org/wiki/Mont_Puget) which is quite hilly.
 
 {% include image.html url="/images/2019/07/marseille-cassis.jpg" description="A view from the top of the Marseille-Cassis road" %}
-<br/>
+<br/><br/>
 
 Unfortunately, when we started going down towards Cassis my partner got a flat tire. It turned out
 she was carrying a piece of glass for some time which tore through her tire and ultimately her tube.
@@ -182,7 +182,7 @@ justice through our pictures because the roads were so small you couldn't really
 pictures wihtout putting yourself in danger.
 
 {% include image.html url="/images/2019/07/collebasse.jpg" description="Collebasse pass near Ramatuelle" %}
-<br/>
+<br/><br/>
 
 Unfortunately, this itinerary was quite longer than the other one and we were litterally in the
 middle of the heat wave with 33°C under shelter at 10AM so we didn't really enjoy it as much as we
