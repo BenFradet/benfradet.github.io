@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Marseille <-> Fréjus bicycle tour
+title: Martigues <-> Fréjus bicycle tour
 categories:
   - cycling
 ---
