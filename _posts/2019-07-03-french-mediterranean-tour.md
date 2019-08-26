@@ -1,13 +1,13 @@
 ---
 layout: post
-title: Martigues <-> Fréjus bicycle tour
+title: Coast of Provence bicycle tour
 categories:
   - cycling
 ---
 
-Last week, my partner and I went on a bicycle tour along the French Mediterranean coast. We started
-from the West of Marseille where we live to join friends near Fréjus which is further along the
-French Mediterranean coast to the East.
+Last week, my partner and I went on a bicycle tour along the French Mediterranean coast in Provence.
+We started from the West of Marseille where we live to join friends near Fréjus which is further
+along the French Mediterranean coast to the East.
 
 {% include image.html url="/images/2019/07/camping.jpg" description="Our camping setup" %}
 <br/><br/>
